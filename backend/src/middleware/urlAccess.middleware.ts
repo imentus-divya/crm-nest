@@ -9,14 +9,14 @@ export class UrlAccess implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     // const req_role_id=req.query.role;
     const re_api = req.baseUrl;
-    console.log("🚀 ~ file: urlAccess.middleware.ts:12 ~ UrlAccess ~ use ~ re_api:", re_api)
+    // console.log("🚀 ~ file: urlAccess.middleware.ts:12 ~ UrlAccess ~ re_api:", re_api)
 
 
     try {
       //  expecting an array of any type for role_url_apii.
       const { role_url_apii } = await this.cacheService.Caching();
-      console.log("Cached data recieved: ", role_url_apii);
-      const req_role_id = Number(req.query.role);
+      console.log("Cached data recieved for backend : ", role_url_apii);
+      const req_role_id = req.query.role;
       const req_api = req.baseUrl;
 
       //  const checkApi: boolean = role_url_apii.some((data) => {  
@@ -24,9 +24,11 @@ export class UrlAccess implements NestMiddleware {
       //  })
       //   console.log("🚀 ~ file: urlAccess.middleware.ts:24 ~ UrlAccess ~ use ~ checkApi:", checkApi)
       let checkApi = false; // Initialize checkApi as false
+        console.log("🚀 ~ file: urlAccess.middleware.ts:27 ~ UrlAccess ~ REQ_ROLE_ID:", req_role_id , 'REQ_URL : ',req_api)
 
       role_url_apii.some((data) => {
-        if (data.role_id === req_role_id && data.screen_url === req_api) {
+        if (data.role_id == req_role_id && data.screen_url == req_api) {
+          console.log("data.role_id : ",data.role_id ,"data.screen_url : ",data.screen_url)
           checkApi = true; // Set checkApi to true if the conditions match
          // Stop the iteration once a match is found
         }

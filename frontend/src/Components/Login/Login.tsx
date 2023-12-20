@@ -76,8 +76,7 @@ const Login = () => {
                     localStorage.setItem('county_fileType',JSON.stringify(response.data.county_FileType))
                     const reqRoleid=response.data.reqRole_id;
                     const reqURL='/Admin/admin-dashboard';
-                    console.log("role id to request : ",reqRoleid , "requested url : " ,reqURL)
-
+                    console.log("role id to request : ",role , "requested url : " ,reqURL)
                     Navigation("/Admin/admin-dashboard");
                      
                   }

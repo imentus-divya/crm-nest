@@ -5,6 +5,12 @@ VALUES ('country');
 INSERT INTO lov_type (name)
 VALUES ('company_type');    
 
+INSERT INTO lov_type (name)
+VALUES ('county');  
+
+INSERT INTO lov_type (name)
+VALUES ('file_type');  
+
 -- Insertion into LOV table
 INSERT INTO lov (name,type_id)
 VALUES ('IND',1); 
@@ -23,6 +29,19 @@ VALUES ('Tech',2);
 
 INSERT INTO lov (name,type_id)
 VALUES ('Health',2); 
+
+INSERT INTO lov (name,type_id)
+VALUES ('Orange',3); 
+
+INSERT INTO lov (name,type_id)
+VALUES ('Hillsborough',3); 
+
+INSERT INTO lov (name,type_id)
+VALUES ('Foreclosure',4); 
+
+INSERT INTO lov (name,type_id)
+VALUES ('LPCourtCases',4); 
+
 
 -- INSERTION INTO ROLES TABLE
 INSERT INTO roles (name) VALUES ('User');

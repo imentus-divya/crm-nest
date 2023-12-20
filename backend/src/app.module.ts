@@ -47,6 +47,6 @@ export class AppModule implements NestModule{
   
   // middleware configuartion
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(UrlAccess).forRoutes('/admin-dashboard')
+    consumer.apply(UrlAccess).forRoutes('/admin-dashboard','/upload-data')
   }
 }

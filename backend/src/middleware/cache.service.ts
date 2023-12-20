@@ -29,13 +29,13 @@ export class Caches{
         .select(['screen.url', 'screen.url_type', 'screen.id', 'roleScreen.role_id'])
         .getRawMany();
 
-        console.log("🚀 ~ file: cache.service.ts:31 ~ Caches ~ Caching ~ caching:", caching)
+        // console.log("🚀 ~ file: cache.service.ts:31 ~ Caches ~ Caching ~ caching:", caching)
 
             this.role_url_api = caching.filter(data => data.screen_url_type === 'backend');
             this.role_url_ui = caching.filter(data => data.screen_url_type === 'frontend')
 
-            console.log("backend role url present in cache   : ", this.role_url_api)
-            console.log("frontend role url present in cache   : ", this.role_url_ui)
+            // console.log("backend role url present in cache   : ", this.role_url_api)
+            // console.log("frontend role url present in cache   : ", this.role_url_ui)
 
         // console.log("🚀 ~ file: cache.service.ts:30 ~ AuthService ~ Caching ~ caching:", caching)     
         return {
@@ -50,7 +50,7 @@ export class Caches{
     } 
     else 
     {
-      console.log("🚀cache filled : ", this.role_url_api);
+      // console.log("🚀cache filled : ", this.role_url_api);
       return {
         "role_url_uii": this.role_url_ui,
         "role_url_apii": this.role_url_api

@@ -10,25 +10,26 @@ const ProtectedRoutes = () =>
   const reqURL = location.pathname;
   const Roleid = localStorage.getItem('role_id');
   const reqRoleid:number= Roleid!==null ? parseInt(Roleid):0;
-  // console.log("requested URL at Protected routes : ", "--", reqURL, "requested role_id : ", reqRoleid)
+  console.log("requested URL at Protected routes : ", "--", reqURL, "requested role_id : ", reqRoleid)
 
 
 
   const isAuthenticated = () =>
   {
     if (token) {
-      interface cache_data_type { role_id: number, url: string}
+      interface cache_data_type { role_id: number, screen_url: string}
       let cached_UI : string | null = localStorage.getItem('UIroles');
-
+      
       let cached_UI_url:cache_data_type[] |null=null;
       if (cached_UI !== null) {
         cached_UI_url = JSON.parse(cached_UI);
+        console.log("🚀 ~ file: ProtectedRoutes.tsx:26 ~ cached_UI_url:", cached_UI_url)
         // console.log("UI roles: ", cached_UI_url);
     
         if (cached_UI_url !== null) 
         {
             const checkUI = cached_UI_url.some(data => {
-                return data.role_id == reqRoleid && data.url == reqURL;
+                return data.role_id == reqRoleid && data.screen_url == reqURL;
             });
     
             // console.log("check ui: ", checkUI);

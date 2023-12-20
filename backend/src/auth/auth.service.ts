@@ -11,7 +11,7 @@ import { Caches } from 'src/middleware/cache.service';
 export class AuthService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
-    // private readonly cacheService: Caches,
+    private readonly cacheService: Caches,
     private jwtService: JwtService
    
   ) { }
@@ -27,7 +27,12 @@ export class AuthService {
       // console.log("🚀 ~ file: auth.service.ts:19 ", user)
       // return [user];
       const payload = { id: user.id, username: user.username ,role_id:user.role_id.id ,company_id:user.company_id,tenant_id:user.tenant_id  };
-      return{tokenVal: await this.jwtService.signAsync(payload) , username , role_id}
+      // frontend caching
+      const { role_url_uii } = await this.cacheService.Caching();
+      console.log("Cached data recieved for frontend url: ", role_url_uii);
+
+
+      return{tokenVal: await this.jwtService.signAsync(payload) , username , role_id,role_url_uii:role_url_uii}
     }
     console.log('User not found');
     return [];

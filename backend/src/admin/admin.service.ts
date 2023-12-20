@@ -10,8 +10,12 @@ export class AdminService {
   //   return 'This action adds a new admin';
   // }
 
-  findAll() {
+  AdminDashboard() {
     return `This action returns to admin dashboard`;
+  }
+  AdminUploadData()
+  {
+    return `This action returns to admin Upload Data`;
   }
 
   // findOne(id: number) {

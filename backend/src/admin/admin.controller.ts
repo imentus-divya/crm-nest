@@ -16,9 +16,17 @@ export class AdminController {
  @HttpCode(HttpStatus.OK)
  @UseGuards(AuthGuard)
   @Get('/admin-dashboard')
-  findAll(@Req() request: ExpressRequest) {
-    return this.adminService.findAll();
+  AdminDashboard(@Req() request: ExpressRequest) {
+    return this.adminService.AdminDashboard();
   }
+
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
+  @Get('/upload-data')
+  AdminUploadData(@Req() request: ExpressRequest) {
+    return this.adminService.AdminUploadData();
+  }
+
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {

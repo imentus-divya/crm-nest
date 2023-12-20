@@ -37,7 +37,9 @@ const AdminNavbar = () => {
 
     const dashboard_btn = async () => {
         const token = localStorage.getItem('jwtToken')
-        await axios.get(`${urll}/admin-dashboard`, { headers: { 'Authorization': token } }).then((response:AxiosResponse)=> {
+        const role=localStorage.getItem('role_id')
+
+        await axios.get(`${urll}/admin-dashboard`, { headers: { 'Authorization': token },params:{role} }).then((response:AxiosResponse)=> {
             // Handle successful response and update the dashboard UI
             console.log("response recieved from token AdminDashboard verification", response);
             if (response.status == 200) {
@@ -50,7 +52,9 @@ const AdminNavbar = () => {
     }
     const upload_btn = async () => {
         const token = localStorage.getItem('jwtToken')
-        await axios.get(`${urll}/upload-data`, { headers: { 'Authorization': token } }).then((response:AxiosResponse) => {
+        const role=localStorage.getItem('role_id')
+
+        await axios.get(`${urll}/upload-data`, { headers: { 'Authorization': token },params:{role}}).then((response:AxiosResponse) => {
             // Handle successful response and update the dashboard UI
             console.log("response recieved from upload data verification", response);
            
