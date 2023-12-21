@@ -60,6 +60,10 @@ INSERT INTO screens (name) values ('admin-dashboard-ui')
 INSERT INTO screens (name) values ('admin-dashboard')
 INSERT INTO screens (name) values ('admin-upload-data-ui')
 INSERT INTO screens (name) values ('admin-upload-data')
+INSERT INTO screens (name) values ('user-dashboard-ui');
+INSERT INTO screens (name) values ('user-dashboard');
+INSERT INTO screens (name) values ('foreclosure-ui');
+INSERT INTO screens (name) values ('foreclosure');
 INSERT INTO screens (name) values ('admin-upload-data/new-upload-ui')
 INSERT INTO screens (name) values ('admin-upload-data/new-upload')
 
@@ -70,6 +74,10 @@ INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/Admin/
 INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/upload-data','backend',' API Admin Upload Data ',4);
 INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/Admin/upload-data/new-upload','frontend',' UI Admin Upload Data /new upload file ',5);
 INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('upload-data/new-upload','backend',' API Admin Upload Data /new upload file ',6);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/dashboard','frontend',' UI user Dashboard ',7);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/dashboard','backend',' API user Dashboard ',8);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/foreclosure','frontend',' UI user Upload Data ',9);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/foreclosure','backend',' API user Upload Data ',10);
 
 --INSERT INTO ROLE_SCREEN TABLE
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,1);
@@ -78,3 +86,7 @@ INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,3);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,4);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,5);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,6);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,7);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,8);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,9);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,10);

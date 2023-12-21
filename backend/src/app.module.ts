@@ -18,6 +18,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 // import { Caching } from './middleware/caching.service';
 import { Caches } from './middleware/cache.service';
 // import { UrlAccess } from './middleware/urlAccess.middleware';
+import { UserModule } from './user/user.module';
 
 
 
@@ -36,7 +37,7 @@ import { Caches } from './middleware/cache.service';
   CacheModule.register({ isGlobal: true }),
   TypeOrmModule.forFeature([Screen_url ,Role_Screen]),
   AuthModule, 
-  AdminModule,
+  AdminModule, UserModule,
   // isGlobal: true will make the cache available to all modules in the
   //  application, meaning you won't need to import the cache module into each module!
   ],
@@ -47,6 +48,6 @@ export class AppModule implements NestModule{
   
   // middleware configuartion
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(UrlAccess).forRoutes('/admin-dashboard','/upload-data')
+    consumer.apply(UrlAccess).forRoutes('/admin-dashboard','/upload-data','/dashboard', '/foreclosure')
   }
 }
