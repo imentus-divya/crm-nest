@@ -18,11 +18,6 @@ export class UrlAccess implements NestMiddleware {
       console.log("Cached data recieved for backend : ", role_url_apii);
       const req_role_id = req.query.role;
       const req_api = req.baseUrl;
-
-      //  const checkApi: boolean = role_url_apii.some((data) => {  
-      //  return data.role_id === req_role_id && data.screen_url === req_api
-      //  })
-      //   console.log("🚀 ~ file: urlAccess.middleware.ts:24 ~ UrlAccess ~ use ~ checkApi:", checkApi)
       let checkApi = false; // Initialize checkApi as false
         console.log("🚀 ~ file: urlAccess.middleware.ts:27 ~ UrlAccess ~ REQ_ROLE_ID:", req_role_id , 'REQ_URL : ',req_api)
 
@@ -32,7 +27,6 @@ export class UrlAccess implements NestMiddleware {
           checkApi = true; // Set checkApi to true if the conditions match
          // Stop the iteration once a match is found
         }
-         // Continue checking other elements in the array
       });
 
       if (checkApi) {

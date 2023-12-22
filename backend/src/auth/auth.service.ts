@@ -24,15 +24,16 @@ export class AuthService {
     console.log("🚀 ~ file: auth.service.ts:21 ~ AuthService ~ findAll ~ user:", user)
 
     if (user?.password === password) {
-      // console.log("🚀 ~ file: auth.service.ts:19 ", user)
-      // return [user];
+      console.log("🚀 ~ file: auth.service.ts:19 ", user)
+    //   // return [user];
       const payload = { id: user.id, username: user.username ,role_id:user.role_id.id ,company_id:user.company_id,tenant_id:user.tenant_id  };
-      // frontend caching
+    //   // frontend caching
+      console.log("🚀 ~ file: auth.service.ts:19 ---role_id :", user.role_id.id)
+
       const { role_url_uii } = await this.cacheService.Caching();
       console.log("Cached data recieved for frontend url: ", role_url_uii);
 
-
-      return{tokenVal: await this.jwtService.signAsync(payload) , username , role_id,role_url_uii:role_url_uii}
+      return{tokenVal: await this.jwtService.signAsync(payload , {expiresIn:60 * 60 * 24 * 7}) , username ,role_id,user,role_url_uii}
     }
     console.log('User not found');
     return [];
