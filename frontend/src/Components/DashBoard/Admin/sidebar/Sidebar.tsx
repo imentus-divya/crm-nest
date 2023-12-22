@@ -12,7 +12,7 @@ import { Dropdown } from 'primereact/dropdown';
 
 
 const Navbar = () => {
-    const urll = 'http://localhost:8000'
+    const urll = process.env.REACT_APP_BACKEND_API_URL;
     const navRef = useRef(null);
     const [isNavClose, setIsNavClose] = useState(false);
     const [NavBoxClose,setNavBoxClose]=useState(false)

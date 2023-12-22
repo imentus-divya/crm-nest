@@ -1,39 +1,11 @@
 import React, { useRef } from "react";
 import "../styledashb.css";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import {
-  AiOutlineContainer,
-  AiOutlineFileProtect,
-  AiOutlineSnippets,
-  AiOutlineSetting,
-  AiOutlineLogout,
-  AiOutlineFund,
-} from "react-icons/ai";
 import { useState } from "react";
-import Header from "./UserHeader";
-import SideNav from "./UserSideNav";
 
 const Dashboard = () => {
-  const navRef = useRef(null);
-  // const [showForm, setShowForm] = useState(false);
-  const [isNavClose, setIsNavClose] = useState(false);
-  const [items, setItems] = useState([]);
-  const navcloseFunc = () => {
-    // Toggle the state to control the className
-    setIsNavClose(!isNavClose);
-  };
-
   return (
     <>
-      <Header navcloseFunc={navcloseFunc} items={items} setItems={setItems} />
       <div className="main-container">
-        <div
-          className={`navcontainer ${isNavClose ? "navclose" : ""}`}
-          ref={navRef}
-        >
-          <SideNav navcloseFunc={navcloseFunc} />
-        </div>
         <div className="main">
           <>
             <div className="searchbar2">
