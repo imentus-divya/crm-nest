@@ -1,7 +1,7 @@
 
 
 import { Chart } from 'primereact/chart';
-import './adstyle.css'
+import './adstyle.module.css'
 import { useState ,useEffect } from "react";
 import { Calendar } from 'primereact/calendar';
 import { Nullable } from "primereact/ts-helpers";

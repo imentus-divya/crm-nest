@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import AdminNavbar from "./AdminNavbar";
-import './adstyle.css'
+import './adstyle.module.css'
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { Button } from 'primereact/button';

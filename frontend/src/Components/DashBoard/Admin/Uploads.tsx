@@ -1,6 +1,6 @@
 
 import React from "react";
-import './adstyle.css'
+import './adstyle.module.css'
 import '../styledashb.css'
 import AdminNavbar from "./AdminNavbar";
 import { Button } from 'primereact/button';

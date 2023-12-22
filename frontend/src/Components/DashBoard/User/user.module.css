@@ -1,0 +1,43 @@
+.ftable {
+  margin-top: 10px !important;
+}
+
+.countyList {
+  display: flex;
+  justify-content: inherit;
+  gap: 1%;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+}
+.countyListD {
+  border: 1px solid;
+  border-radius: 8px;
+  width: 11rem;
+
+  /* @media (max-width: 1294px) {
+    width: 8rem;
+  } */
+}
+.countyList1 {
+  display: flex;
+  gap: 2%;
+  padding-top: 30px;
+  border-radius: 5px;
+}
+.countyRow {
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 992px) {
+    display:inline;
+  }
+}
+.exportList {
+  border: 1px solid rgb(186, 186, 255);
+  padding: 12px 25px;
+  border-radius: 10px;
+  background-color: cornflowerblue;
+  color: white;
+}

@@ -27,7 +27,7 @@ import { UserModule } from './user/user.module';
     type: 'postgres',
     host: 'localhost',
     port: 5432,
-    password: '123',
+    password: 'postgres',
     username: 'postgres',
     entities: [User ,Lov_type ,Lov,Roles ,Screens,Screen_url,Role_Screen],
     database: 'crm_db',
