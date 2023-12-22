@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
-import "./styledashb.css";
 import axios from "axios";
+import "../styledashb.css";
 import { useNavigate } from "react-router-dom";
+import DashFC from './DashFC';
 import { Tooltip } from "primereact/tooltip";
 import { Badge } from "primereact/badge";
 import {
@@ -17,19 +18,20 @@ import {
 import { useState } from "react";
 import { Dropdown } from "primereact/dropdown";
 
-const Usernav = () => {
+const Foreclosure = () => {
   const urll = "http://localhost:8000";
   const navRef = useRef(null);
   const [showForm, setShowForm] = useState(false);
   const [isNavClose, setIsNavClose] = useState(false);
-  const [NavBoxClose, setNavBoxClose] = useState(false);
   const [items, setItems] = useState([]);
   const user = localStorage.getItem("display_name");
-
   const navcloseFunc = () => {
     // Toggle the state to control the className
     setIsNavClose(!isNavClose);
-    setNavBoxClose(!isNavClose);
+  };
+
+  const toggleForm = () => {
+    setShowForm(!showForm);
   };
 
   const Navigation = useNavigate();
@@ -59,7 +61,7 @@ const Usernav = () => {
       .then((response) => {
         // Handle successful response and update the dashboard UI
         console.log(
-          "response recieved from Foreclosure verification",
+          "response recieved from foreclosure verification",
           response
         );
         if (response.status == 200) {
@@ -106,7 +108,6 @@ const Usernav = () => {
 
         <div className="message">
           <Tooltip target=".custom-target-icon" />
-
           <i
             className="custom-target-icon pi pi-envelope p-text-secondary p-overlay-badge"
             data-pr-tooltip="No notifications"
@@ -131,7 +132,7 @@ const Usernav = () => {
         </div>
       </header>
 
-      <div className={`main-container ${NavBoxClose ? "navboxclose" : ""}`}>
+      <div className="main-container">
         <div
           className={`navcontainer ${isNavClose ? "navclose" : ""}`}
           ref={navRef}
@@ -170,8 +171,75 @@ const Usernav = () => {
             </div>
           </nav>
         </div>
+        <div className="main">
+          <div className="fc-container">
+            <div className="fc-header-box">
+              <div className="header-box-text">
+                <h2>Foreclosure Data </h2>
+                <p>Take a look to the foreclosure data!</p>
+              </div>
+
+              <div className="header-box-filter">
+                <input
+                  className="calend"
+                  type="date"
+                  name="start"
+                  value="2001-01-01"
+                  min="2001-01-01"
+                  max="2023-12-31"
+                />
+                <input
+                  className="calend"
+                  type="date"
+                  name="end"
+                  value="2002-05-05"
+                  min="201-01-01"
+                  max="2023-12-31"
+                />
+                <AiOutlineFilter className="filter-icon" onClick={toggleForm} />
+              </div>
+            </div>
+
+            {/* inputs */}
+            <div className="header-box-form">
+              {showForm && (
+                <form className="form-inline">
+                  <label htmlFor="County">County:</label>
+                  <select className="select input" name="county">
+                    <option value="HillsBorough">HillsBorough</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Fulton">Fulton</option>
+                    <option value="Madison">Madison</option>
+                  </select>
+                  <label htmlFor="pwd">Document:</label>
+                  <select className="select input " name="Document">
+                    <option value="Foreclosure Data">Foreclosure Data</option>
+                  </select>
+
+                  <label htmlFor="Reporting Date">Reporting Date :</label>
+                  <input
+                    className="input"
+                    type="date"
+                    name="start"
+                    value="2001-01-01"
+                    min="2001-01-01"
+                    max="2023-12-31"
+                  />
+
+                  <button className="button" type="submit">
+                    Submit
+                  </button>
+                </form>
+              )}
+            </div>
+
+            <div className="fc-box-two">
+              <DashFC />
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
 };
-export default Usernav;
+export default Foreclosure;

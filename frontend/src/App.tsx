@@ -3,13 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 // 
 import Login from './Components/Login/Login'
-import Dashboard from './Components/DashBoard/Dashboard'
-import DashFC from './Components/DashBoard/DashFC'
+import Dashboard from './Components/DashBoard/User/Dashboard'
+import DashFC from './Components/DashBoard/User/DashFC'
 import Admindashboard from './Components/DashBoard/Admin/Admindashboard'
 import Uploads from './Components/DashBoard/Admin/Uploads'
 import AdminNavbar from './Components/DashBoard/Admin/AdminNavbar';
 import Usernav from './Components/DashBoard/UserNav';
-import Foreclosure from './Components/DashBoard/Foreclosure'
+import Foreclosure from './Components/DashBoard/User/Foreclosure'
 import NewUpload from './Components/DashBoard/Admin/NewUpload';
 import ProtectedRoutes from './ProtectedRoutes/ProtectedRoutes'
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
