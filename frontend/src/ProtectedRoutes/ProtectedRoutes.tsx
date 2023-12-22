@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 const ProtectedRoutes = () => 
 {
-
   const token = localStorage.getItem('jwtToken');
   let location = useLocation();
 
@@ -13,10 +12,9 @@ const ProtectedRoutes = () =>
   console.log("requested URL at Protected routes : ", "--", reqURL, "requested role_id : ", reqRoleid)
 
 
-
   const isAuthenticated = () =>
   {
-    if (token) {
+    if (token && reqRoleid) {
       interface cache_data_type { role_id: number, screen_url: string}
       let cached_UI : string | null = localStorage.getItem('UIroles');
       

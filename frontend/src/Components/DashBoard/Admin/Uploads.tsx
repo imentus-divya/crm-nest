@@ -1,7 +1,7 @@
 
 import React from "react";
 import './adstyle.css'
-import '../styledashb.css'
+// import '../styledashb.css'
 import AdminNavbar from "./AdminNavbar";
 import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
@@ -18,6 +18,7 @@ const Admindash = () => {
     const location = useLocation();
     const meta_data_values = location.state;
     console.log("🚀 ~ file: Uploads.tsx:20 ~ Admindash ~ additionalData:", meta_data_values)
+    const sample_foreclosure_url = meta_data_values.view_data;
 
     interface Product {
         UploadDate: Date | null,
@@ -25,10 +26,9 @@ const Admindash = () => {
         County: string,
         File: string,
         RecordCount: number,
-        View: JSX.Element
+        Download: JSX.Element
     }
     useEffect(() => {
-
         setProducts(meta_data_values);
     }, []);
 
@@ -37,27 +37,40 @@ const Admindash = () => {
     const handleButtonClick = (rowData:any) => {
         // Handle button click for the specific row data
         console.log('Button clicked for:', rowData);
+        const filepath=`http://localhost:8000/${rowData.view_data}`;
+        const fileName = 'qwertyuio.csv';
+        const aTag=document.createElement('a');
+        aTag.href=filepath;
+        aTag.setAttribute('download',fileName)
+        document.body.appendChild(aTag)
+        aTag.click();
+        aTag.remove();
       };
-    const actionTemplate = (rowData:any) => {
+    const download_Btn = (rowData:any) => {
         return (
-          <Button label="View" onClick={() => handleButtonClick(rowData)} />
+          <Button label="Download" onClick={() => handleButtonClick(rowData)} />
         );
       };
+    
     const columns = [
-        { field: 'upload_date', header: 'upload Date' },
-        { field: 'upload_type', header: 'Upload Type' },
-        { field: 'county', header: 'County' },
-        { field: 'file_name', header: 'File' },
+        { field:'date', header: 'upload Date' },
+        { field: 'upload_type.name', header: 'Upload Type' },
+        { field: 'county.name', header: 'County' },
+        { field: 'filename', header: 'File' },
         { field: 'record_count', header: 'Record Count' },
-        { field: 'view_data', header: 'View', body: actionTemplate,  },
+        { field: 'view_data', header: 'Download', body: download_Btn },
 
     ];
     // new upload btn
     const Navigation = useNavigate()
     const NewUploadbtn = async () => {
         const token = localStorage.getItem('jwtToken')
-        await axios.get(`${urll}/upload-data/new-upload`, { headers: { 'Authorization': token } }).then(response => {
-            console.log("response recieved ", response);
+        const role=localStorage.getItem('role_id');
+        
+        await axios.get(`${urll}/upload-data/new-upload`, { headers: { 'Authorization': token },params:{role} }).then(response => {
+         
+            console.log("🚀 ~ file: Uploads.tsx:63 ~ awaitaxios.get ~ response:", response)
+            
             if (response.status == 200) {
                 Navigation('/Admin/upload-data/new-upload')
             }
@@ -72,19 +85,19 @@ const Admindash = () => {
     return (
         <>
             <div className="dashboard-container">
-                <AdminNavbar />
+                {/* <AdminNavbar /> */}
 
                 <div className="main-content-admin">
                     <div className="main-admin">
                         <div className="top-content">
-                            <h2>New Uploads</h2>
+                            <h2>History Uploads</h2>
                             <div className="card flex justify-content-center">
                                 <Button label="New Upload" onClick={NewUploadbtn} > <i style={{ marginLeft: '5px' }} className="pi pi-plus"></i>
                                 </Button>
                             </div>
                         </div>
                         <>
-                            {console.log("tezt", products)}
+                            {console.log("test", products)}
                         </>
                         {/* <p>hshshshs${meta_data_values}</p> */}
                         <div className="bottom-content">

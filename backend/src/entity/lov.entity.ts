@@ -6,11 +6,12 @@ export class Lov {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ unique: true })
     name: string;
 
     // @ManyToOne(() => Lov_type, type_id => type_id.id,@JoinColumn({ name: 'type_id' });
     // type: Lov_type; 
+
     @ManyToOne(() => Lov_type, lovType => lovType.id)
     @JoinColumn({ name: 'type_id' }) // Specify the name of the foreign key column here
     type: Lov_type;

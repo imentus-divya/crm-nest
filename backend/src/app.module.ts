@@ -12,15 +12,12 @@ import { AdminModule } from './admin/admin.module';
 import { Screens} from './entity/screens.entity';
 import { Screen_url } from './entity/screen_url.entity';
 import { Role_Screen } from './entity/role_screen.entity';
+import { Upload_meta_data } from './entity/upload_data.entity';
 import { UrlAccess } from './middleware/urlAccess.middleware';
 import { CacheModule } from '@nestjs/cache-manager';
-
-// import { Caching } from './middleware/caching.service';
 import { Caches } from './middleware/cache.service';
 // import { UrlAccess } from './middleware/urlAccess.middleware';
 import { UserModule } from './user/user.module';
-
-
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -29,13 +26,13 @@ import { UserModule } from './user/user.module';
     port: 5432,
     password: '123',
     username: 'postgres',
-    entities: [User ,Lov_type ,Lov,Roles ,Screens,Screen_url,Role_Screen],
+    entities: [User ,Lov_type ,Lov,Roles ,Screens,Screen_url,Role_Screen,Upload_meta_data],
     database: 'crm_db',
     synchronize: true,
     logging: true,
   }),  
   CacheModule.register({ isGlobal: true }),
-  TypeOrmModule.forFeature([Screen_url ,Role_Screen]),
+  TypeOrmModule.forFeature([Screen_url ,Role_Screen,Lov]),
   AuthModule, 
   AdminModule, UserModule,
   // isGlobal: true will make the cache available to all modules in the

@@ -23,6 +23,7 @@ const NewUpload = () => {
     const [csvData, setCsvData] = useState<string[][]>([]);
     const [csvJObj, setCsvObj] = useState<string[][]>([]);
     const [RowCount,setRowCount]=useState<number>(0);
+
     const dropdown = localStorage.getItem('county_fileType');
     const dropdownValues = dropdown ? JSON.parse(dropdown) : {};
 
@@ -37,7 +38,8 @@ const NewUpload = () => {
     const handleBackbtn=async ()=>
     {
         const token = localStorage.getItem('jwtToken')
-        await axios.get(`${urll}/upload-data`, { headers: { 'Authorization': token } }).then((response:AxiosResponse) => {
+        const role=localStorage.getItem('role_id');
+        await axios.get(`${urll}/upload-data`, { headers: { 'Authorization': token } ,params:{role}}).then((response:AxiosResponse) => {
             // Handle successful response and update the dashboard UI
             console.log("response recieved from upload data verification", response);
            
@@ -101,7 +103,9 @@ const NewUpload = () => {
         formData.append('fileType',JSON.stringify(selectedfileType))
         formData.append('RowCount',JSON.stringify(RowCount))
 
-        console.log(" 90 line : newupload.tsx : rows present are : ",RowCount)
+        console.log(" 105 line : newupload.tsx : rows present are : ",RowCount)
+        // console.log(" 106 line : newupload.tsx : rows present are : ",fo)
+
         try {
             await axios.post(`${urll}/new-upload/file`, formData).then((res)=>
             {if(res.status==200)
@@ -160,23 +164,23 @@ const NewUpload = () => {
         <>
             <div className="dashboard-container dashboard-container-lg">
             <Toast ref={toast} />
-                <AdminNavbar />
+                {/* <AdminNavbar /> */}
                 <div className="main-content-admin">
                     <div className="main-admin">
                         <div className="new-upload-heading">
                             <FaArrowLeftLong className="back-btn" onClick={handleBackbtn}/>
-                            <h2> New Upload</h2>
+                            <h2> History of Uploads</h2>
                         </div>
                         <div className="new-upload-filters">
                             {/* Select County */}
                             <div className="card flex justify-content-center new-upload-filters-btn">
                                 <Dropdown value={selectedCounty} onChange={(e: DropdownChangeEvent) => setSelectedCounty(e.value)} options={countyOptions} optionLabel="name"
-                                    placeholder="Select File Type" className="w-full md:w-14rem" />
+                                    placeholder="Select County" className="w-full md:w-14rem" />
                             </div>
                             {/* Select File Type */}
                             <div className="card flex justify-content-center new-upload-filters-btn">
                                 <Dropdown value={selectedfileType} onChange={(e: DropdownChangeEvent) => setSelectedfileType(e.value)} options={fileTypeOptions} optionLabel="name"
-                                    placeholder="Select County" className="w-full md:w-14rem" />
+                                    placeholder="Select File Type" className="w-full md:w-14rem" />
                             </div>
                             {/* Input File */}
                             <div className="card flex justify-content-center">           

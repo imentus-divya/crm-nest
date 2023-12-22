@@ -8,10 +8,11 @@ import { jwtConstants } from './constants';
 import { Caches } from 'src/middleware/cache.service';
 import { Role_Screen } from 'src/entity/role_screen.entity';
 import { Screen_url } from 'src/entity/screen_url.entity';
+import { Lov } from 'src/entity/lov.entity';
 
 
 @Module({
-  imports:[TypeOrmModule.forFeature([User,Role_Screen,Screen_url]) , JwtModule.register({
+  imports:[TypeOrmModule.forFeature([User,Role_Screen,Screen_url,Lov]) , JwtModule.register({
     global: true,
     secret: jwtConstants.secret,
     signOptions: { expiresIn: '60s' },

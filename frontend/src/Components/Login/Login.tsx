@@ -11,13 +11,11 @@ var display_name: string;
 const Login = () => {
   const toast = useRef<Toast>(null);
 
+  localStorage.clear()
+
   localStorage.clear();
 
-  const [InputVal, setInputVal] = useState<{
-    username: string;
-    password: string;
-    rememberme: boolean;
-  }>({
+  const [InputVal, setInputVal] = useState<{ username: string, password: string, rememberme: boolean }>({
     username: "",
     password: "",
     rememberme: false,
@@ -32,8 +30,10 @@ const Login = () => {
 
   const inputEvent = (event: ChangeEvent<HTMLInputElement>): void => {
     setInputVal({ ...InputVal, [event.target.name]: event.target.value });
+
   };
   const Navigation = useNavigate();
+
 
   //  check url access
 
@@ -193,38 +193,16 @@ const Login = () => {
           </div>
           <div className="form-databox-input">
             <label htmlFor="uname">Username</label>
-            <input
-              type="text"
-              placeholder="Enter Username"
-              name="username"
-              required
-              onChange={inputEvent}
-              value={InputVal.username}
-              className="username"
-            />
-            {errors.username ? (
-              <p className="error-class">{errors.username}</p>
-            ) : (
-              ""
-            )}
+            <input type="text" placeholder="Enter Username" name="username" required
+              onChange={inputEvent} value={InputVal.username} className='username' />
+            {errors.username ? <p className="error-class">{errors.username}</p> : ""}
 
             <label htmlFor="psw">Password</label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              name="password"
-              required
-              onChange={inputEvent}
-              value={InputVal.password}
-              className="password"
-            />
-            {errors.password ? (
-              <p className="error-class">{errors.password}</p>
-            ) : (
-              ""
-            )}
+            <input type="password" placeholder="Enter Password" name="password" required
+              onChange={inputEvent} value={InputVal.password} className='password' />
+            {errors.password ? <p className="error-class">{errors.password}</p> : ""}
 
-            <label>
+            <label >
               {/* <>
               
              { console.log("check",InputVal.rememberme)}
@@ -237,9 +215,9 @@ const Login = () => {
               />{" "}
               Remember me
             </label>
-            <button className="loginbtn" type="submit" onClick={loginbtn}>
-              Login
-            </button>
+            <button className="loginbtn" type="submit" onClick={loginbtn}>Login</button>
+
+
           </div>
         </div>
       </div>

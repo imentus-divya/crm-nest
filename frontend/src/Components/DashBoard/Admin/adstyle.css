@@ -12,7 +12,7 @@ body {
 
 .dashboard-container {
   display: flex;
-  width: 100vw;
+  /* width: 100vw; */
   position: relative;
   z-index: 1;
   opacity: 1;
@@ -22,7 +22,7 @@ body {
 
 .main-content-admin {
   height: calc(100vh - 70px);
-  width: 100%;
+  /* width: 100%; */
   position: relative;
   top: 70px;
   overflow-y: scroll;
@@ -30,12 +30,13 @@ body {
   transition: opacity 0.5s ease-in-out;
 }
 .main-admin {
-  height: calc(100vh - 70px);
+  /* height: calc(100vh - 70px); */
   width: 100%;
   /* overflow-y: scroll; */
   overflow-x: hidden;
   padding: 40px 30px 30px 30px;
   }
+ 
   
   /* .main-admin::-webkit-scrollbar-thumb {
   background-image: 
