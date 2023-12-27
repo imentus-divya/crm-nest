@@ -1,5 +1,76 @@
 .NavWrap {
   position: fixed;
   height: 100%;
-  z-index: 9999;
+  z-index: 9;
+}
+.searchBox {
+  border: 1px solid;
+  border-radius: 8px;
+}
+.logosec {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  @media (max-width: 616px) {
+    gap: 20px;
+  }
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 600;
+  color: rgb(1, 139, 237);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.logo:hover {
+  color: #3e4444;
+}
+
+.notify {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+.profile {
+  display: flex;
+  padding: 5px;
+  justify-content: center;
+  gap: 20px;
+  background-color: #f3f3f9;
+}
+
+.message {
+  position: relative;
+  padding-top: 8px;
+  cursor: pointer;
+}
+
+/* For screen size upto 800px */
+@media (max-width: 800px) {
+  .notify {
+    gap: 20px;
+  }
+  .profile {
+    gap: 10px;
+  }
+}
+
+/* For screen size upto 616px */
+@media (max-width: 616px) {
+  .logosec {
+    gap: 20px;
+  }
+  .logo {
+    font-size: 15px;
+  }
+}
+
+/* For screen size upto 470px */
+@media (max-width: 470px) {
+  .logo {
+    font-size: 10px;
+  }
 }

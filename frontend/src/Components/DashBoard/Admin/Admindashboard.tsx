@@ -186,7 +186,6 @@ const Admindashboard = () => {
           </div>
         </div>
       </div>
-      
     </>
   );
 };

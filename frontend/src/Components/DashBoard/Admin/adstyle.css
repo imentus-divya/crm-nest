@@ -7,9 +7,7 @@
   margin-left: 250px;
 
   @media (-webkit-device-pixel-ratio: 1.25) {
-    height: calc(
-      (100vh - 32px) / var(--zoomFor_1_25)
-    ); /* remove footer space */
+    height: calc((100vh - 32px) / var(--zoomFor_1_25));
   }
 
   .content-wrapper {
@@ -198,10 +196,10 @@
   justify-content: flex-start;
   align-items: center;
 }
-.p-dropdown .p-dropdown-label {
+/* .p-dropdown .p-dropdown-label {
   background: transparent;
   border: 1px solid gray;
-}
+} */
 .new-upload-data {
   width: 100%;
   margin-top: 30px;

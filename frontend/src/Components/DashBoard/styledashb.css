@@ -210,7 +210,7 @@ header {
   flex-direction: column;
   align-items: center;
   font-weight: 200;
-  gap: 30px;
+  gap: 20px;
 }
 
 .option1 {
@@ -508,7 +508,7 @@ header {
     gap: 20px;
     width: 30%;
   }
-  .logosec {
+.logosec {
     gap: 20px;
   }
 }
@@ -519,7 +519,7 @@ header {
   header {
     padding: 0 5px;
   }
-  .logo {
+.logo {
     font-size: 15px;
   }
   .logosec {
@@ -556,7 +556,7 @@ header {
   .filter-icon {
     width: 25%;
   }
-  .logo {
+.logo {
     font-size: 10px;
   }
   .searchbtn {
@@ -586,7 +586,7 @@ header {
   }
 }
 @media (max-width: 700px) {
-  .logo {
+.logo {
     font-size: 20px;
   }
   .save {
