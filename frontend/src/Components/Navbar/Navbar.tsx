@@ -3,7 +3,13 @@ import { Badge } from "primereact/badge";
 import { Dropdown } from "primereact/dropdown";
 import { Tooltip } from "primereact/tooltip";
 import React, { useRef, useState } from "react";
-import { AiOutlineSetting, AiOutlineLogout } from "react-icons/ai";
+import {
+  AiOutlineSetting,
+  AiOutlineLogout,
+  AiOutlineFund,
+  AiOutlineContainer,
+  AiOutlineFileProtect,
+} from "react-icons/ai";
 import {
   FaChartColumn,
   FaUpload,
@@ -12,7 +18,7 @@ import {
   FaUsersViewfinder,
 } from "react-icons/fa6";
 import { useNavigate, useLocation } from "react-router-dom";
-import navStyles from "./Navbar.module.css";
+import styles from "./Navbar.module.css";
 
 export default function Navbar(props: any) {
   const { isNavClose, setIsNavClose } = props;
@@ -21,6 +27,7 @@ export default function Navbar(props: any) {
   const [NavBoxClose, setNavBoxClose] = useState(false);
   const [items, setItems] = useState([]);
   const user = localStorage.getItem("display_name");
+  console.log("🚀 ~ file: Navbar.tsx:24 ~ Navbar ~ user:", user);
 
   const location = useLocation().pathname;
 
@@ -59,6 +66,20 @@ export default function Navbar(props: any) {
       .catch((error: Error) => {
         console.error("Error fetching dashboard data:", error);
       });
+  };
+  const foreclosure_btn = async () => {
+    Navigation("/foreclosure");
+    // const token = localStorage.getItem("jwtToken");
+    // await axios
+    //   .get(`${urll}/foreclosure`, { headers: { Authorization: token } })
+    //   .then((response) => {
+    //     if (response.status == 200) {
+    //       Navigation("/foreclosure");
+    //     }
+    //   })
+    // .catch((error) => {
+    // console.log("🚀 ~ file: Navbar.tsx:80 ~ constforeclosure_btn= ~ error:", error)
+    // });
   };
   const upload_btn = async () => {
     const token = localStorage.getItem("jwtToken");
@@ -103,18 +124,9 @@ export default function Navbar(props: any) {
     { value: "Activities", label: "Activities" },
     { value: "Mytask", label: "My Task" },
   ];
-  const styles = {
-    mainContainer: {
-      width: NavBoxClose ? "70px" : "250px",
-      height: `calc(100vh - 70px)`,
-      position: "relative",
-      overflowX: "hidden",
-      transition: "all 0.5s ease-in-out",
-    },
-  };
 
   return (
-    <div className={`${navStyles.NavWrap}`}>
+    <div className={`${styles.NavWrap}`}>
       {location === "/" ? (
         ""
       ) : (
@@ -131,7 +143,7 @@ export default function Navbar(props: any) {
               ></span>
             </div>
 
-            <div className="searchbar">
+            <div className={`${styles.searchBox}`}>
               <div className="card flex justify-content-center">
                 <Dropdown
                   value={items}
@@ -144,6 +156,40 @@ export default function Navbar(props: any) {
                 />
               </div>
             </div>
+
+            {/* <div className={`${styles.notify}`}>
+              <div className={`${styles.message}`}>
+                <Tooltip target=".custom-target-icon" />
+                <i
+                  className="custom-target-icon pi pi-envelope p-text-secondary p-overlay-badge"
+                  data-pr-tooltip="No notifications"
+                  data-pr-position="right"
+                  data-pr-at="right+5 top"
+                  data-pr-my="left center-2"
+                  style={{ fontSize: "2rem", cursor: "pointer" }}
+                >
+                  <Badge severity="danger"></Badge>
+                </i>
+              </div>
+              <div className={`${styles.profile}`}>
+                <div className="dp">
+                  <img
+                    src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
+                    className="dpicn"
+                    alt="dp"
+                  />
+                </div>
+                <p
+                  style={{
+                    color: "black",
+                    fontWeight: "100",
+                    fontSize: "15px",
+                  }}
+                >
+                  {user}
+                </p>
+              </div>
+            </div> */}
 
             <div className="message">
               <Tooltip target=".custom-target-icon" />
@@ -165,11 +211,11 @@ export default function Navbar(props: any) {
                   alt="dp"
                 />
               </div>
-              <h6
+              <p
                 style={{ color: "black", fontWeight: "100", fontSize: "15px" }}
               >
                 {user}
-              </h6>
+              </p>
             </div>
           </header>
 
@@ -180,41 +226,70 @@ export default function Navbar(props: any) {
           >
             <div className={`navcontainer  ${isNavClose ? "navclose" : ""}`}>
               <nav className="nav">
-                <div className="nav-upper-options">
-                  <div className="nav-option option1 " onClick={dashboard_btn}>
-                    <FaChartColumn className="nav-img" />
-                    <h3> Dashboard</h3>
-                  </div>
+                {user === "admin" ? (
+                  <div className="nav-upper-options">
+                    <div
+                      className="nav-option option1 "
+                      onClick={dashboard_btn}
+                    >
+                      <FaChartColumn className="nav-img" />
+                      <h3> Dashboard</h3>
+                    </div>
 
-                  <div className="option2 nav-option" onClick={upload_btn}>
-                    <FaUpload className="nav-img" />
-                    <h3>Upload Data</h3>
-                  </div>
+                    <div className="option2 nav-option" onClick={upload_btn}>
+                      <FaUpload className="nav-img" />
+                      <h3>Upload Data</h3>
+                    </div>
 
-                  <div className="nav-option ">
-                    <FaUserPlus className="nav-img" />
-                    <h3> Manage User</h3>
-                  </div>
+                    <div className="nav-option ">
+                      <FaUserPlus className="nav-img" />
+                      <h3> Manage User</h3>
+                    </div>
 
-                  <div className="nav-option option4">
-                    <FaUsersGear className="nav-img" />
-                    <h3>Manage Roles</h3>
-                  </div>
-                  <div className="nav-option option4">
-                    <FaUsersViewfinder className="nav-img" />
-                    <h3>Manage Screen</h3>
-                  </div>
+                    <div className="nav-option option4">
+                      <FaUsersGear className="nav-img" />
+                      <h3>Manage Roles</h3>
+                    </div>
+                    <div className="nav-option option4">
+                      <FaUsersViewfinder className="nav-img" />
+                      <h3>Manage Screen</h3>
+                    </div>
 
-                  <div className="nav-option option6">
-                    <AiOutlineSetting className="nav-img" />
-                    <h3> Settings</h3>
-                  </div>
+                    <div className="nav-option option6">
+                      <AiOutlineSetting className="nav-img" />
+                      <h3> Settings</h3>
+                    </div>
 
-                  <div className="nav-option logout " onClick={logout_btn}>
-                    <AiOutlineLogout className="nav-img" />
-                    <h3>Logout</h3>
+                    <div className="nav-option logout " onClick={logout_btn}>
+                      <AiOutlineLogout className="nav-img" />
+                      <h3>Logout</h3>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="nav-upper-options">
+                    <div
+                      className="nav-option option1 "
+                      onClick={dashboard_btn}
+                    >
+                      <AiOutlineFund className="nav-img" />
+                      <h3>Dashboard</h3>
+                    </div>
+                    <div
+                      className="nav-option option1 "
+                      onClick={foreclosure_btn}
+                    >
+                      <AiOutlineContainer className="nav-img" />
+                      <h3>Foreclosure</h3>
+                    </div>
+                    <div
+                      className="nav-option option1 "
+                      onClick={dashboard_btn}
+                    >
+                      <AiOutlineFileProtect className="nav-img" />
+                      <h3>Tax Deed</h3>
+                    </div>
+                  </div>
+                )}
               </nav>
             </div>
           </div>
