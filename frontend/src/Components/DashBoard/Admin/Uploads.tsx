@@ -26,7 +26,7 @@ const Admindash = () => {
     County: string;
     File: string;
     RecordCount: number;
-    Download: JSX.Element;
+    // Download: JSX.Element;
   }
   useEffect(() => {
     setProducts(meta_data_values);
@@ -64,12 +64,9 @@ const Admindash = () => {
   const Navigation = useNavigate();
   const NewUploadbtn = async () => {
     const token = localStorage.getItem("jwtToken");
-    const role = localStorage.getItem("role_id");
-
     await axios
       .get(`${urll}/upload-data/new-upload`, {
         headers: { Authorization: token },
-        params: { role },
       })
       .then((response) => {
         console.log(

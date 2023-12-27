@@ -27,7 +27,7 @@ export class AdminService {
 
   }
   async HistoryUploads() {
-    console.log('~~admin.services 36 ~ ~', await this.metadataRepository.find())
+    console.log('~~line number 30 ...history uploads',  await this.metadataRepository.find({relations:['upload_type' , 'county']}))
     return await this.metadataRepository.find({relations:['upload_type' , 'county']});
   }
   AdminNewUpload() {
@@ -70,6 +70,7 @@ export class AdminService {
 
     try {
       const result = await this.metadataRepository.save(meta_data);
+      console.log("🚀 ~ file: admin.service.ts:73 ~ AdminService ~ NewFileUpload ~ result:", result)
       return result; 
     }
     catch (e) {

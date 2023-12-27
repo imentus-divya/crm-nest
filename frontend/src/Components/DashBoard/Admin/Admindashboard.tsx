@@ -186,75 +186,7 @@ const Admindashboard = () => {
           </div>
         </div>
       </div>
-      <div
-        className={`dashboard-container ${"" ? "dashboard-container-lg" : ""}`}
-      >
-        <div className="main-content-admin">
-          <div className="main-admin">
-            <div className="heading-container-admin">
-              <div className="heading-container-txts">
-                <h1 className="wlcm-msg">Welcome Back !</h1>
-                <h5 className="line-msg">
-                  Here's what happening with your track today{" "}
-                </h5>
-              </div>
-
-              <div className="calender">
-                <div className="card flex justify-content-center">
-                  <Calendar
-                    value={date}
-                    onChange={(e) => setDate(e.value)}
-                    showIcon
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="box-container-admin">
-              <div className="box-admin box1">
-                <div className="text">
-                  <h2 className="topic">Total Earnings</h2>
-                  <h2 className="topic-heading">$5000</h2>
-                </div>
-                <FaCircleDollarToSlot className="box-logo-admin" />
-              </div>
-
-              <div className="box-admin box2">
-                <div className="text">
-                  <h2 className="topic">Active Users</h2>
-                  <h2 className="topic-heading">500</h2>
-                </div>
-                <FaChartLine className="box-logo-admin" />
-              </div>
-            </div>
-
-            <div className="report-container-admin">
-              <div className="report-graph">
-                <div className="card">
-                  <Chart type="bar" data={chartData} options={chartOptions} />
-                </div>
-              </div>
-              <div className="report-table">
-                <div className="card">
-                  <DataTable
-                    value={products}
-                    tableStyle={{ minWidth: "48rem" }}
-                    header={header}
-                    showGridlines
-                  >
-                    {columns.map((col, i) => (
-                      <Column
-                        key={col.field}
-                        field={col.field}
-                        header={col.header}
-                      />
-                    ))}
-                  </DataTable>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </>
   );
 };

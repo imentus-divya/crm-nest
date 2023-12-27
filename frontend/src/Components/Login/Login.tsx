@@ -79,7 +79,7 @@ const Login = () => {
                 await axios
                   .get(`${urll}/admin-dashboard`, {
                     headers: { Authorization: token },
-                    params: { role },
+                   
                   })
                   .then((response) => {
                     console.log(
@@ -113,7 +113,6 @@ const Login = () => {
                 await axios
                   .get(`${urll}/dashboard`, {
                     headers: { Authorization: token },
-                    params: { role },
                   })
                   .then((response) => {
                     console.log(

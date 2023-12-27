@@ -13,7 +13,7 @@ import { Screens} from './entity/screens.entity';
 import { Screen_url } from './entity/screen_url.entity';
 import { Role_Screen } from './entity/role_screen.entity';
 import { Upload_meta_data } from './entity/upload_data.entity';
-import { UrlAccess } from './middleware/urlAccess.middleware';
+// import { UrlAccess } from './middleware/urlAccess.middleware';
 import { CacheModule } from '@nestjs/cache-manager';
 import { Caches } from './middleware/cache.service';
 // import { UrlAccess } from './middleware/urlAccess.middleware';
@@ -41,10 +41,11 @@ import { UserModule } from './user/user.module';
   controllers: [AppController],
   providers: [AppService,Caches],
 })
-export class AppModule implements NestModule{
+export class AppModule{}
+// export class AppModule implements NestModule{
   
-  // middleware configuartion
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(UrlAccess).forRoutes('/admin-dashboard','/upload-data','/dashboard', '/foreclosure')
-  }
-}
+//   // middleware configuartion
+//   // configure(consumer: MiddlewareConsumer) {
+//   //   consumer.apply(UrlAccess).forRoutes('/admin-dashboard','/upload-data','/dashboard', '/foreclosure')
+//   // }
+// }
