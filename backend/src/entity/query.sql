@@ -90,3 +90,37 @@ INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,7);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,8);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,9);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,10);
+
+
+-- CATALOGDB 
+--INSERTION INTO CATALOG_LOV_TYPE
+insert into catalog_lov_type(name)values('company_type')
+insert into catalog_lov_type(name)values('country_code')
+
+--insertion into catalog_lov
+INSERT INTO catalog_lov (name,type_id)
+VALUES ('IND',2); 
+
+INSERT INTO catalog_lov (name,type_id)
+VALUES ('USA',2); 
+
+INSERT INTO catalog_lov (name,type_id)
+VALUES ('UK',2); 
+INSERT INTO catalog_lov (name,type_id)
+VALUES ('Food',1); 
+
+INSERT INTO catalog_lov (name,type_id)
+VALUES ('Tech',1); 
+
+INSERT INTO catalog_lov (name,type_id)
+VALUES ('Health',1); 
+
+--INSERTION INTO TENANT TABLE
+INSERT INTO tenant (name, username, password, active, country_code)
+VALUES ('tenant1', 't1', '1234', true, 4);
+
+--insertion into company table
+
+INSERT INTO company (name, active, tenant_id, country_id, company_type_id,connection_string)
+VALUES ('Company1', true, 'f81d17d6-7a37-4c28-8b3f-f2be4b7bfd74', 4, 1,'postgres://postgres:123@localhost:5432/crm_db');
+
