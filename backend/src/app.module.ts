@@ -18,15 +18,16 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { Caches } from './middleware/cache.service';
 // import { UrlAccess } from './middleware/urlAccess.middleware';
 import { UserModule } from './user/user.module';
+import { foreclosure } from './entity/foreclosure';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'postgres',
     host: 'localhost',
     port: 5432,
-    password: '123',
+    password: 'postgres',
     username: 'postgres',
-    entities: [User ,Lov_type ,Lov,Roles ,Screens,Screen_url,Role_Screen,Upload_meta_data],
+    entities: [User ,Lov_type ,Lov,Roles ,Screens,Screen_url,Role_Screen,Upload_meta_data, foreclosure],
     database: 'crm_db',
     synchronize: true,
     logging: true,

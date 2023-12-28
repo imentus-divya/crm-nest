@@ -13,20 +13,21 @@ import {
 import "../styledashb.css";
 
 const ForeClosureTab = (props: any) => {
-  const { isManageCol } = props;
+  const { isManageCol, data } = props;
+  console.log("🚀 ~ file: ForeclosureTable.tsx:17 ~ ForeClosureTab ~ data:", data)
   const columns = [
-    { field: "AuctnDate", header: "Auctn Date" },
-    { field: "CaseNumber", header: "Case No#" },
-    { field: "Address", header: "Address" },
-    { field: "OpeningBid", header: "Opening Bid" },
-    { field: "AsdVal", header: "Assessed value" },
-    { field: "LegDes", header: "Legal Des." },
+    { field: "auction_date", header: "Auctn Date" },
+    { field: "case_number", header: "Case No#" },
+    { field: "address", header: "Address" },
+    { field: "defendants", header: "Defendants" },
+    { field: "plaintiffs", header: "plainTiff" },
+    { field: "judgement", header: "Judgement" },
     { field: "status", header: "Status" },
   ];
   interface Product {
-    AuctnDate: string;
-    CaseNumber: string;
-    Address: string;
+    auction_date: string;
+    case_number: string;
+    address: string;
     AsdVal: number;
     OpeningBid: number;
     LegDes: string;
@@ -52,71 +53,71 @@ const ForeClosureTab = (props: any) => {
     { name: "Paris", code: "PRS" },
   ];
 
-  useEffect(() => {
-    const productsdata: Product[] = [
-      {
-        AuctnDate: "P001",
-        CaseNumber: "Product 1",
-        Address: "Category A",
-        AsdVal: 10,
-        OpeningBid: 10,
-        LegDes: "BankA",
-        Jdgmnt: 1000,
-        status: "open",
-      },
-      {
-        AuctnDate: "P002",
-        CaseNumber: "Product 2",
-        Address: "Category B",
-        AsdVal: 15,
-        OpeningBid: 15,
-        LegDes: "BankA",
-        Jdgmnt: 1000,
-        status: "open",
-      },
-      {
-        AuctnDate: "P003",
-        CaseNumber: "Product 3",
-        Address: "Category C",
-        AsdVal: 20,
-        OpeningBid: 20,
-        LegDes: "BankA",
-        Jdgmnt: 1000,
-        status: "open",
-      },
-      {
-        AuctnDate: "P004",
-        CaseNumber: "Product 4",
-        Address: "Category D",
-        AsdVal: 15,
-        OpeningBid: 15,
-        LegDes: "BankA",
-        Jdgmnt: 1000,
-        status: "open",
-      },
-      {
-        AuctnDate: "P005",
-        CaseNumber: "Product 5",
-        Address: "Category E",
-        AsdVal: 15,
-        OpeningBid: 15,
-        LegDes: "BankA",
-        Jdgmnt: 1000,
-        status: "open",
-      },
-      {
-        AuctnDate: "P006",
-        CaseNumber: "Product 6",
-        Address: "Category G",
-        AsdVal: 15,
-        OpeningBid: 15,
-        LegDes: "BankA",
-        Jdgmnt: 1000,
-        status: "open",
-      },
-    ];
-    setProducts(productsdata);
-  }, []);
+  // useEffect(() => {
+  //   const productsdata: Product[] = [
+  //     {
+  //       AuctnDate: "P001",
+  //       CaseNumber: "Product 1",
+  //       Address: "Category A",
+  //       AsdVal: 10,
+  //       OpeningBid: 10,
+  //       LegDes: "BankA",
+  //       Jdgmnt: 1000,
+  //       status: "open",
+  //     },
+  //     {
+  //       AuctnDate: "P002",
+  //       CaseNumber: "Product 2",
+  //       Address: "Category B",
+  //       AsdVal: 15,
+  //       OpeningBid: 15,
+  //       LegDes: "BankA",
+  //       Jdgmnt: 1000,
+  //       status: "open",
+  //     },
+  //     {
+  //       AuctnDate: "P003",
+  //       CaseNumber: "Product 3",
+  //       Address: "Category C",
+  //       AsdVal: 20,
+  //       OpeningBid: 20,
+  //       LegDes: "BankA",
+  //       Jdgmnt: 1000,
+  //       status: "open",
+  //     },
+  //     {
+  //       AuctnDate: "P004",
+  //       CaseNumber: "Product 4",
+  //       Address: "Category D",
+  //       AsdVal: 15,
+  //       OpeningBid: 15,
+  //       LegDes: "BankA",
+  //       Jdgmnt: 1000,
+  //       status: "open",
+  //     },
+  //     {
+  //       AuctnDate: "P005",
+  //       CaseNumber: "Product 5",
+  //       Address: "Category E",
+  //       AsdVal: 15,
+  //       OpeningBid: 15,
+  //       LegDes: "BankA",
+  //       Jdgmnt: 1000,
+  //       status: "open",
+  //     },
+  //     {
+  //       AuctnDate: "P006",
+  //       CaseNumber: "Product 6",
+  //       Address: "Category G",
+  //       AsdVal: 15,
+  //       OpeningBid: 15,
+  //       LegDes: "BankA",
+  //       Jdgmnt: 1000,
+  //       status: "open",
+  //     },
+  //   ];
+  //   setProducts(productsdata);
+  // }, []);
 
   const onColumnToggle = (event: MultiSelectChangeEvent) => {
     let selectedColumns = event.value;
@@ -216,10 +217,10 @@ const ForeClosureTab = (props: any) => {
 
   return (
     <div className="parent">
-      {products !== null ? (
+      {products == null ? (
         <div className="def">
           <DataTable
-            value={products}
+            value={data}
             ref={dt}
             showGridlines
             paginator

@@ -68,18 +68,26 @@ export default function Navbar(props: any) {
       });
   };
   const foreclosure_btn = async () => {
-    Navigation("/foreclosure");
-    // const token = localStorage.getItem("jwtToken");
-    // await axios
-    //   .get(`${urll}/foreclosure`, { headers: { Authorization: token } })
-    //   .then((response) => {
-    //     if (response.status == 200) {
-    //       Navigation("/foreclosure");
-    //     }
-    //   })
-    // .catch((error) => {
-    // console.log("🚀 ~ file: Navbar.tsx:80 ~ constforeclosure_btn= ~ error:", error)
-    // });
+    // Navigation("/foreclosure");
+    const token = localStorage.getItem("jwtToken");
+    await axios
+      .get(`${urll}/foreclosure`, {
+        headers: { Authorization: token },
+        params: { role: "1" },
+      })
+      .then((response) => {
+        console.log("🚀 ~ file: Navbar.tsx:79 ~ .then ~ response:", response);
+        let data = response.data.items;
+        if (response.status == 200) {
+          Navigation("/foreclosure", { state: data });
+        }
+      })
+      .catch((error) => {
+        console.log(
+          "🚀 ~ file: Navbar.tsx:80 ~ constforeclosure_btn= ~ error:",
+          error
+        );
+      });
   };
   const upload_btn = async () => {
     const token = localStorage.getItem("jwtToken");

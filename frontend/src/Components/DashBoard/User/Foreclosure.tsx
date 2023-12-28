@@ -1,5 +1,5 @@
 import "../styledashb.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Duration from "../../Calender/Duration";
 import { useState } from "react";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
@@ -17,7 +17,12 @@ const Foreclosure = () => {
   //County list
   const counties = ["HillsBorough", "Orange", "Fulton", "Madison"];
 
-  const Navigation = useNavigate();
+  const location = useLocation();
+  const data = location.state;
+  console.log(
+    "🚀 ~ file: Foreclosure.tsx:22 ~ Foreclosure ~ meta_data_values:",
+    data
+  );
 
   return (
     <>
@@ -84,7 +89,7 @@ const Foreclosure = () => {
             </div>
 
             <div className={`fc-box-two ${styles.ftable}`}>
-              <ForeClosureTab isManageCol={isManageCol} />
+              <ForeClosureTab isManageCol={isManageCol} data={data} />
             </div>
           </div>
         </div>

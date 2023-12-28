@@ -18,7 +18,7 @@ const Admindash = () => {
     "🚀 ~ file: Uploads.tsx:20 ~ Admindash ~ additionalData:",
     meta_data_values
   );
-  const sample_foreclosure_url = meta_data_values.view_data;
+  // const sample_foreclosure_url = meta_data_values.view_data;
 
   interface Product {
     UploadDate: Date | null;
