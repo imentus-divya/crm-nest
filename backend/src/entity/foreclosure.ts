@@ -1,8 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryColumn,
-} from 'typeorm';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'foreclosure' })
 export class foreclosure {
@@ -25,13 +21,13 @@ export class foreclosure {
   plaintiffs: string[];
 
   @Column('money')
-  judgement: string;
+  judgement: string|null;
 
   @Column('money')
-  zillow: string;
+  zillow: string|null;
 
   @Column('money')
-  redfin: string;
+  redfin: string|null;
 
   @Column({
     length: 20,
@@ -51,8 +47,8 @@ export class foreclosure {
   })
   internal_case_id: string;
 
-  @Column({ type: 'text' })
-  user_comments: string;
+  @Column('text', { array: true })
+  user_comments: string[]|null;
 
   @Column({ type: 'text' })
   county_name: string;

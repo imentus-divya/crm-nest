@@ -8,21 +8,13 @@ import { Button } from "primereact/button";
 import ForeClosureTab from "./ForeclosureTable";
 
 const Foreclosure = () => {
-  const urll = process.env.REACT_APP_BACKEND_API_URL;
   const [showForm, setShowForm] = useState(true);
   const [isNavClose, setIsNavClose] = useState(false);
   const [isManageCol, setIsManageCol] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState("");
 
   //County list
-  const counties = ["HillsBorough", "Orange", "Fulton", "Madison"];
-
-  const location = useLocation();
-  const data = location.state;
-  console.log(
-    "🚀 ~ file: Foreclosure.tsx:22 ~ Foreclosure ~ meta_data_values:",
-    data
-  );
+  const counties = ["Hillsborough", "orange", "London", "Madison"];
 
   return (
     <>
@@ -55,7 +47,7 @@ const Foreclosure = () => {
                           }
                           options={counties}
                           // optionLabel="hjj"
-                          placeholder={counties[0]}
+                          placeholder={"Select a county"}
                           style={{ border: "0px !important" }}
                           className="w-full md:w-14rem"
                         />
@@ -89,7 +81,10 @@ const Foreclosure = () => {
             </div>
 
             <div className={`fc-box-two ${styles.ftable}`}>
-              <ForeClosureTab isManageCol={isManageCol} data={data} />
+              <ForeClosureTab
+                isManageCol={isManageCol}
+                county={selectedCounty}
+              />
             </div>
           </div>
         </div>

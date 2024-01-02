@@ -34,12 +34,17 @@ export class UserService {
     return res;
   }
 
+  //To add comments
+  async updateForeclosure(): Promise<string>{
+    return "Updated"
+  }
+
   async Paginate(
     options: IPaginationOptions,
+    county: string,
   ): Promise<Pagination<foreclosure>> {
     const qb = this.foreclosureRepo.createQueryBuilder('q');
-    // qb.orderBy('q.id', 'DESC');
-
+    qb.where('q.county_name = :county', { county });
     return paginate<foreclosure>(qb, options);
   }
 }
