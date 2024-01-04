@@ -28,7 +28,7 @@ import { User_County } from './entity/user_county.entity';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      password: 'postgres',
+      password: '123',
       username: 'postgres',
       entities: [
         User,
