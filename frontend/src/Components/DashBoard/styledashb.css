@@ -81,10 +81,10 @@ header {
   font-size: 15px;
   outline: none;
 }
-.p-dropdown {
+/* .p-dropdown {
   background: transparent;
   border: none;
-}
+} */
 .p-dropdown:not(.p-disabled).p-dropdown:not(.p-disabled).p-focus {
   box-shadow: none;
 }

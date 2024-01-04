@@ -29,14 +29,11 @@ export class User {
   @Column({ nullable: true })
   expiry_token: Date | null;
 
-  // @ManyToOne(() => Roles, role => role.users)
-  // @JoinColumn({ name: 'role_id' }) // This sets a custom column name in the User table
-  // role: Roles;
+  
 
   @ManyToOne(() => Roles,roles=>roles.id)
   @JoinColumn({ name: 'role_id' })
-  role_id: Roles;
-
+  role_id: any
 
 
   @Column() 
@@ -50,7 +47,7 @@ export class User {
 
   @ManyToOne(() => Lov, lov => lov.id)
   @JoinColumn({ name: 'country_code' }) // Specify the name of the foreign key column here
-  type: Lov;
+  country_code: any;
 
 
   @Column({ default: () => 'NOW()' })

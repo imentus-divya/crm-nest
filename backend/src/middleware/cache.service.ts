@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { Role_Screen } from 'src/entity/role_screen.entity';
 import { Screen_url } from 'src/entity/screen_url.entity';
 import { Lov } from 'src/entity/lov.entity';
+import { Roles } from 'src/entity/roles.entity';
 
 
 
@@ -14,14 +15,18 @@ export class Caches {
   private role_url_ui: any = {};
   private county = {};
   private fileType = {};
+  private roles={};
 
 
   constructor(
     @InjectRepository(Role_Screen) private rolescreenRepository: Repository<Role_Screen>,
     @InjectRepository(Screen_url) private screenurlRepository: Repository<Screen_url>,
     @InjectRepository(Lov) private lovRepository: Repository<Lov>,
+    @InjectRepository(Roles) private rolesRepository: Repository<Roles>,
+
 
   ) { }
+  // caching role access based on api
   async Caching(): Promise<any> {
     console.log("In caching function  : ", this.role_url_api);
     if (Object.keys(this.role_url_api || this.role_url_ui).length === 0) {
@@ -101,6 +106,38 @@ export class Caches {
         "fileType": this.fileType
       }
     }
+
+  }
+
+  // caching roles table to show in dropdown at time of creating user
+  async CachingRoles():Promise<any>
+  {
+  console.log("🚀 ~ file: cache.service.ts:114 ~ Caches ~ CachingRoles:")
+  if (Object.keys(this.roles || this.roles).length === 0)
+  {
+    console.log("cache is  empty at roles ...query will execute");
+
+    try {
+      const cachingRole = await this.rolesRepository.find();
+      // console.log("🚀 ~ file: cache.service.ts:122 ~ Caches ~ cachingRole:", cachingRole)
+    
+      return {
+        "roles_present":cachingRole
+      };
+
+    } catch (error) {
+      console.log("🚀  cacheUrls ~ error:", error);
+      return error;
+    }
+  }
+  else {
+    return {
+      "role_url_uii": this.role_url_ui,
+      "role_url_apii": this.role_url_api
+    };
+
+  
+  }
 
   }
 }

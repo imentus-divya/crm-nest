@@ -13,11 +13,13 @@ import { Screens} from './entity/screens.entity';
 import { Screen_url } from './entity/screen_url.entity';
 import { Role_Screen } from './entity/role_screen.entity';
 import { Upload_meta_data } from './entity/upload_data.entity';
+import { User_fileType } from './entity/user_filetype.entity';
 // import { UrlAccess } from './middleware/urlAccess.middleware';
 import { CacheModule } from '@nestjs/cache-manager';
 import { Caches } from './middleware/cache.service';
 // import { UrlAccess } from './middleware/urlAccess.middleware';
 import { UserModule } from './user/user.module';
+import { User_County } from './entity/user_county.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -26,13 +28,13 @@ import { UserModule } from './user/user.module';
     port: 5432,
     password: '123',
     username: 'postgres',
-    entities: [User ,Lov_type ,Lov,Roles ,Screens,Screen_url,Role_Screen,Upload_meta_data],
+    entities: [User ,Lov_type ,Lov,Roles ,Screens,Screen_url,Role_Screen,Upload_meta_data,User_fileType ,User_County],
     database: 'crm_db',
     synchronize: true,
     logging: true,
   }),  
   CacheModule.register({ isGlobal: true }),
-  TypeOrmModule.forFeature([Screen_url ,Role_Screen,Lov]),
+  TypeOrmModule.forFeature([Screen_url ,Role_Screen,Lov,Roles]),
   AuthModule, 
   AdminModule, UserModule,
   // isGlobal: true will make the cache available to all modules in the

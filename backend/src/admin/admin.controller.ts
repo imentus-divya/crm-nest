@@ -4,10 +4,11 @@ import { AdminService } from './admin.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { Request as ExpressRequest } from 'express';
 import { ParseFilePipe, MaxFileSizeValidator, FileTypeValidator } from '@nestjs/common';
-import { get } from 'http';
+import { get, request } from 'http';
 import { Express } from 'express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { User } from 'src/entity/user.entity';
 
 
 // import { CreateAdminDto } from './dto/create-admin.dto';
@@ -37,26 +38,21 @@ export class AdminController {
     return this.adminService.AdminNewUpload();
   }
 
-  // @HttpCode(HttpStatus.OK)
-  // @Post('new-upload/file')
-  // NewFileUpload(@Req() request: ExpressRequest) {
-  // return this.adminService. NewFileUpload(request);
-  
   @Post('new-upload/file')
-  @UseInterceptors(FileInterceptor('file',{
+  @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
       destination: './uploadedFiles',
       filename: (req, file, callback) => {
         const originalName = file.originalname.replace(/\s/g, ''); // Remove spaces
-        const fileExtName = extname(originalName); // Extract file extension
-
         // Create a descriptive filename based on your requirements
         const uniqueSuffix = `${Date.now()}`;
         const customFileName = `${uniqueSuffix}-${originalName}`;
-        
+
         callback(null, customFileName);
-  }})
+      }
+    })
   }))
+  @HttpCode(HttpStatus.OK)
   async NewFileUpload(@UploadedFile(new ParseFilePipe({
     validators: [
       new FileTypeValidator({ fileType: 'csv' }),
@@ -66,4 +62,44 @@ export class AdminController {
     return this.adminService.NewFileUpload(file, body);
   }
 
+  // manage user
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Get('/admin-manage-user')
+  ManageUser(@Req() request: ExpressRequest) {
+    return this.adminService.ManageUser();
+  }
+  // add user
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Get('/add-user')
+  AddUser(@Req() request: ExpressRequest) {
+    return this.adminService.AddUser();
+  }
+
+  // manageRoles
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Get('/admin-manage-roles')
+  ManageRoles(@Req() request: ExpressRequest) {
+    return this.adminService.ManageRoles();
+  }
+
+  // create role
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Get('/create-role')
+  CreateRole(@Req() request: ExpressRequest) {
+    return this.adminService.CreateRole();
+  }
+
+  // save user
+@UseGuards(AuthGuard)
+@HttpCode(HttpStatus.OK)
+@Post('/save-user')
+async SaveUser(@Req() request: ExpressRequest): Promise<User[]> {
+return this.adminService.SaveUser(request);}
+
+
 }
+

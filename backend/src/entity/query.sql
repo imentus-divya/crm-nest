@@ -60,12 +60,29 @@ INSERT INTO screens (name) values ('admin-dashboard-ui')
 INSERT INTO screens (name) values ('admin-dashboard')
 INSERT INTO screens (name) values ('admin-upload-data-ui')
 INSERT INTO screens (name) values ('admin-upload-data')
-INSERT INTO screens (name) values ('user-dashboard-ui');
-INSERT INTO screens (name) values ('user-dashboard');
-INSERT INTO screens (name) values ('foreclosure-ui');
-INSERT INTO screens (name) values ('foreclosure');
-INSERT INTO screens (name) values ('admin-upload-data/new-upload-ui')
-INSERT INTO screens (name) values ('admin-upload-data/new-upload')
+
+-- INSERT INTO screens (name) values ('user-dashboard-ui');
+-- INSERT INTO screens (name) values ('user-dashboard');
+-- INSERT INTO screens (name) values ('foreclosure-ui');
+-- INSERT INTO screens (name) values ('foreclosure');
+
+INSERT INTO screens (name) values ('admin-upload-data/new-upload-ui');
+INSERT INTO screens (name) values ('admin-upload-data/new-upload');
+INSERT INTO screens (name) values ('admin-manage-user-ui');
+INSERT INTO screens (name) values ('admin-manage-user');
+INSERT INTO screens (name) values ('admin-manage-user/add-data-ui');
+INSERT INTO screens (name) values ('admin-manage-user/add-data');
+
+
+INSERT INTO screens (name) values ('admin-manage-roles-ui');
+INSERT INTO screens (name) values ('admin-manage-roles');
+INSERT INTO screens (name) values ('admin-manage-roles/add-role-ui');
+INSERT INTO screens (name) values ('admin-manage-roles/add-role');
+-- save user
+INSERT INTO screens (name) values ('save-user');
+
+
+
 
 --INSERT INTO SCREEN_URL TABLE
 INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/Admin/admin-dashboard','frontend',' UI Admin Dashboard ',1);
@@ -74,10 +91,27 @@ INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/Admin/
 INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/upload-data','backend',' API Admin Upload Data ',4);
 INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/Admin/upload-data/new-upload','frontend',' UI Admin Upload Data /new upload file ',5);
 INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('upload-data/new-upload','backend',' API Admin Upload Data /new upload file ',6);
-INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/dashboard','frontend',' UI user Dashboard ',7);
-INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/dashboard','backend',' API user Dashboard ',8);
-INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/foreclosure','frontend',' UI user Upload Data ',9);
-INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/foreclosure','backend',' API user Upload Data ',10);
+
+-- INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/dashboard','frontend',' UI user Dashboard ',7);
+-- INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/dashboard','backend',' API user Dashboard ',8);
+-- INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/foreclosure','frontend',' UI user Upload Data ',9);
+-- INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/foreclosure','backend',' API user Upload Data ',10);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/Admin/manage-user','frontend',' UI Admin Manage User ',7);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/admin-manage-user','backend',' API Admin Manage User ',8);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/Admin/manage-user/add-user','frontend',' UI Admin Manage User/Add Data ',9);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/add-user','backend',' API Admin Manage User/Add Data ',10);
+
+
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/Admin/manage-roles','frontend',' UI Admin Manage Roles ',11);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/admin-manage-roles','backend',' API Admin Manage Roles ',12);
+
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/Admin/manage-roles/create-role','frontend',' UI Admin Manage Role/Create Role ',13);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/create-role','backend',' API Admin Manage Role/Create Role ',14);
+-- save user
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/save-user','backend',' API Admin Save New user ',15);
+
+
+
 
 --INSERT INTO ROLE_SCREEN TABLE
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,1);
@@ -86,10 +120,26 @@ INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,3);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,4);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,5);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,6);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,7);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,8);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,9);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,10);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,11);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,12);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,13);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,14);
+--save user by admin
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 2 ,15);
+
+--user
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,7);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,8);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,9);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,10);
+
+
+
+
 
 
 -- CATALOGDB 

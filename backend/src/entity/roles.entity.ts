@@ -11,6 +11,12 @@ export class Roles
     @Column({ nullable: false })
     name:string
 
+    @Column({ default: () => 'NOW()' })
+    created_date: Date;
+
+    @Column({ default: true })
+    active: boolean;
+
     @OneToMany(() => User, user => user) // One role can be associated with many users
     users: User[];
 

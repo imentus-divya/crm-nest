@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, JoinColumn ,OneToMany} from "typeorm";
 import { Lov_type } from "./lov_type.entity";
+import { User } from "./user.entity";
 @Entity('lov')
 export class Lov {
     // define columns   
@@ -15,6 +16,10 @@ export class Lov {
     @ManyToOne(() => Lov_type, lovType => lovType.id)
     @JoinColumn({ name: 'type_id' }) // Specify the name of the foreign key column here
     type: Lov_type;
+   
+     
+    @OneToMany(() => User, user => user) // One role can be associated with many users
+    users: User[];
 
 
 
