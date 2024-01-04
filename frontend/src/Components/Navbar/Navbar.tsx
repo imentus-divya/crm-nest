@@ -1,8 +1,9 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { Axios, AxiosResponse } from "axios";
 import { Badge } from "primereact/badge";
 import { Dropdown } from "primereact/dropdown";
 import { Tooltip } from "primereact/tooltip";
 import React, { useRef, useState } from "react";
+import { FaRectangleList } from "react-icons/fa6";
 import {
   AiOutlineSetting,
   AiOutlineLogout,
@@ -26,13 +27,18 @@ export default function Navbar(props: any) {
   const navRef = useRef(null);
   const [NavBoxClose, setNavBoxClose] = useState(false);
   const [items, setItems] = useState([]);
+
   const user = localStorage.getItem("display_name");
   console.log("🚀 ~ file: Navbar.tsx:24 ~ Navbar ~ user:", user);
 
   const location = useLocation().pathname;
+  // storing county&fileType for dropdown
+  let countyFileType;
+
 
   const navcloseFunc = (props: any) => {
     // Toggle the state to control the className
+    console.log("🚀 ~ file: Navbar.tsx:41 ~ navcloseFunc ~ isNavClose:", isNavClose)
     setIsNavClose(!isNavClose);
 
     // Toggle the state to control the className
@@ -48,17 +54,13 @@ export default function Navbar(props: any) {
     const token = localStorage.getItem("jwtToken");
     const role = localStorage.getItem("role_id");
 
-    await axios
-      .get(`${urll}/admin-dashboard`, {
-        headers: { Authorization: token },
-        params: { role },
-      })
+    await axios .get(`${urll}/admin-dashboard`, {headers: { Authorization: token },})
       .then((response: AxiosResponse) => {
         // Handle successful response and update the dashboard UI
-        console.log(
-          "response recieved from token AdminDashboard verification",
-          response
-        );
+        console.log("response recieved from token AdminDashboard verification",response);
+        countyFileType=response.data.county_FileType;
+        console.log("🚀 ~ file: Navbar.tsx:69 ~ .then ~ countyFileType:", countyFileType)
+        
         if (response.status == 200) {
           Navigation("/Admin/admin-dashboard");
         }
@@ -72,12 +74,10 @@ export default function Navbar(props: any) {
   };
   const upload_btn = async () => {
     const token = localStorage.getItem("jwtToken");
-    const role = localStorage.getItem("role_id");
 
     await axios
       .get(`${urll}/upload-data`, {
         headers: { Authorization: token },
-        params: { role },
       })
       .then((response: AxiosResponse) => {
         // Handle successful response and update the dashboard UI
@@ -87,7 +87,7 @@ export default function Navbar(props: any) {
         );
 
         if (response.status == 200) {
-          const metaData = response.data.DataRows;
+          const metaData = response.data;
           console.log(
             "🚀 ~ file: AdminNavbar.tsx:59 ~ awaitaxios.get ~ metaData:",
             metaData
@@ -99,6 +99,41 @@ export default function Navbar(props: any) {
         console.error("Error fetching dashboard data:", error);
       });
   };
+  const manageUser_btn =async()=>
+  {
+    console.log("🚀 ~ file: Navbar.tsx:113 ~ Navbar ~ manageUser_btn:")
+    const token=localStorage.getItem('jwtToken')
+    await axios.get(`${urll}/admin-manage-user`,{headers:{Authorization:token}})
+    .then((response:AxiosResponse)=>
+    {
+      if(response.status==200)
+      {
+        console.log("Response recieved from manage user page",response);
+        const userDetails=response.data;
+        Navigation("/Admin/manage-user",{state:userDetails});
+        // Navigation("/Admin/upload-data", { state: metaData });
+
+      }
+    }).catch((error)=>{console.log("error ise: ",error)})
+  }
+  const manageRoles_btn=async()=>
+  {
+    console.log("🚀 ~ file: Navbar.tsx:131 ~ Navbar ~ manageRoles_btn:")
+    const token=localStorage.getItem('jwtToken')
+    await axios.get(`${urll}/admin-manage-roles`,{headers:{Authorization:token}})
+    .then((response:AxiosResponse)=>
+    {
+      if(response.status==200)
+      {
+        console.log("Response recieved from manage roles page",response);
+        const roleDetails=response.data;
+        Navigation("/Admin/manage-roles",{state:roleDetails});
+        // Navigation("/Admin/upload-data", { state: metaData });
+
+      }
+    }).catch((error)=>{console.log("error ise: ",error)})
+  }
+  
   const logout_btn = async () => {
     const token = localStorage.getItem("jwtToken");
     const userid = localStorage.getItem("userid");
@@ -209,9 +244,8 @@ export default function Navbar(props: any) {
           </header>
 
           <div
-            className={`main-container-admin ${
-              NavBoxClose ? "navboxclose" : ""
-            }`}
+            className={`main-container-admin ${NavBoxClose ? "navboxclose" : ""
+              }`}
           >
             <div className={`navcontainer  ${isNavClose ? "navclose" : ""}`}>
               <nav className="nav">
@@ -225,17 +259,28 @@ export default function Navbar(props: any) {
                       <h3> Dashboard</h3>
                     </div>
 
+                    <div className="option2 nav-option" >
+                      < FaRectangleList className="nav-img" />
+                      <h3>Foreclosure</h3>
+                    </div>
+
+                    <div className="option2 nav-option" >
+                      <FaRectangleList className="nav-img" />
+                      <h3>LpCourt Cases</h3>
+                    </div>
+                    
+
                     <div className="option2 nav-option" onClick={upload_btn}>
                       <FaUpload className="nav-img" />
                       <h3>Upload Data</h3>
                     </div>
 
-                    <div className="nav-option ">
+                    <div className="option2 nav-option" onClick={manageUser_btn}>
                       <FaUserPlus className="nav-img" />
                       <h3> Manage User</h3>
                     </div>
 
-                    <div className="nav-option option4">
+                    <div className="nav-option option4" onClick={manageRoles_btn}>
                       <FaUsersGear className="nav-img" />
                       <h3>Manage Roles</h3>
                     </div>

@@ -9,10 +9,11 @@ import { Caches } from 'src/middleware/cache.service';
 import { Role_Screen } from 'src/entity/role_screen.entity';
 import { Screen_url } from 'src/entity/screen_url.entity';
 import { Lov } from 'src/entity/lov.entity';
+import { Roles } from 'src/entity/roles.entity';
 
 
 @Module({
-  imports:[TypeOrmModule.forFeature([User,Role_Screen,Screen_url,Lov]) , JwtModule.register({
+  imports:[TypeOrmModule.forFeature([User,Role_Screen,Screen_url,Lov,Roles]) , JwtModule.register({
     global: true,
     secret: jwtConstants.secret,
     signOptions: { expiresIn: '60s' },

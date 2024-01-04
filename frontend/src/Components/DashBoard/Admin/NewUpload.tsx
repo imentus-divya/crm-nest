@@ -35,11 +35,10 @@ const NewUpload = () => {
 
   const handleBackbtn = async () => {
     const token = localStorage.getItem("jwtToken");
-    const role = localStorage.getItem("role_id");
+   
     await axios
       .get(`${urll}/upload-data`, {
         headers: { Authorization: token },
-        params: { role },
       })
       .then((response: AxiosResponse) => {
         // Handle successful response and update the dashboard UI
@@ -49,7 +48,7 @@ const NewUpload = () => {
         );
 
         if (response.status == 200) {
-          const metaData = response.data.DataRows;
+          const metaData = response.data;
           console.log(
             "🚀 ~ file: AdminNavbar.tsx:59 ~ awaitaxios.get ~ metaData:",
             metaData
@@ -198,8 +197,9 @@ const NewUpload = () => {
 
   return (
     <>
+       <Toast ref={toast} />
       <div className="dashboard-container dashboard-container-lg">
-        <Toast ref={toast} />
+     
         <div className="main-content-admin">
           <div className="main-admin">
             <div className="new-upload-heading">

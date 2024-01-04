@@ -39,7 +39,7 @@ const Foreclosure = () => {
                   <div className={`${styles.countyList}`}>
                     <div>
                       {/* <p style={{ margin: "5px" }}>County Name</p> */}
-                      <div className={`${styles.countyListD}`}>
+                      <div className={``}>
                         <Dropdown
                           value={selectedCounty}
                           onChange={(e: DropdownChangeEvent) =>
@@ -49,7 +49,7 @@ const Foreclosure = () => {
                           // optionLabel="hjj"
                           placeholder={"Select a county"}
                           style={{ border: "0px !important" }}
-                          className="w-full md:w-14rem"
+                          className={`${styles.countyListD}`}
                         />
                       </div>
                     </div>

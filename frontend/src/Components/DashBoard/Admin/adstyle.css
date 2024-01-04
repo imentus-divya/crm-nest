@@ -1,21 +1,28 @@
 .dashboard-container {
   display: flex;
-  /* width: 100vw; */
   position: relative;
+  position: relative;
+  justify-content: center;
   z-index: 1;
+  /* margin-top: 70px; */
+
   opacity: 1;
+  /* width: 100vw; */
   transition: opacity 0.5s ease-in-out;
-  /* background-color: blue */
+ 
 }
 
 .main-content-admin {
-  height: calc(100vh - 70px);
-  /* width: 100%; */
+  /* height: calc(100vh - 70px);
+  width: 100%; 
+  height: 100vh;  */
   position: relative;
   top: 70px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden; 
   transition: opacity 0.5s ease-in-out;
+  /* background-color: red */
+
 }
 .main-admin {
   /* height: calc(100vh - 70px); */
@@ -113,14 +120,16 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  /* background-color: rebeccapurple; */
 }
 .bottom-content {
   width: 100%;
-  background-color: #e5e7eb;
+  /* background-color: #e5e7eb; */
 }
-.upload-table th {
-  background-color: var(--lightblue);
+.upload-table th{
+  background-color: #ebefef;
 }
+
 /* UPLOADS/NEW UPLOAD PAGE */
 .new-upload-heading {
   display: flex;
@@ -261,4 +270,49 @@
 
 .display {
   display: block;
+}
+
+/* Manage user page */
+/* top content */
+.header-content-mu
+{
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-table-header th{
+  background-color: rgb(222,241,251);
+}
+.top-adduser{
+  /* background-color: #3B82F6; */
+  justify-content: left;
+  gap: 20px;
+}
+
+/* ADD USER PAGE */
+.add-user-box{
+  width: 70%;
+  margin: auto;
+  /* background-color: #3B82F6; */
+  border :1px solid #3B82F6;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px 10px 30px 10px;
+  justify-content: center;
+  gap: 30px;
+  /* background-color: aquamarine; */
+}
+.dropdwn-adduser{
+  width:200px;
+}
+/*  */
+.buttons-submit-cancel{
+  width: 100%;
+  /* background-color: red; */
+  padding: 10px 50px 30px 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }

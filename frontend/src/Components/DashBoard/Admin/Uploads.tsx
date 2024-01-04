@@ -26,7 +26,7 @@ const Admindash = () => {
     County: string;
     File: string;
     RecordCount: number;
-    Download: JSX.Element;
+    // Download: JSX.Element;
   }
   useEffect(() => {
     setProducts(meta_data_values);
@@ -37,6 +37,7 @@ const Admindash = () => {
   const handleButtonClick = (rowData: any) => {
     // Handle button click for the specific row data
     console.log("Button clicked for:", rowData);
+    console.log("🚀 ~ file: Uploads.tsx:40 ~ handleButtonClick ~ rowData:", rowData)
     const filepath = `http://localhost:8000/${rowData.view_data}`;
     const fileName = "qwertyuio.csv";
     const aTag = document.createElement("a");
@@ -47,13 +48,31 @@ const Admindash = () => {
     aTag.remove();
   };
   const download_Btn = (rowData: any) => {
+    console.log("🚀 ~ file: Uploads.tsx:51 ~ Admindash ~ rowData:", rowData)
     return (
       <Button label="Download" onClick={() => handleButtonClick(rowData)} />
     );
   };
+  const handleTime = (rowData: any) => {
+    console.log("🚀 ~ file: Uploads.tsx:57 ~ handleTime ~ rowData:", rowData)
+    const date = new Date(rowData?.date);
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZone: 'UTC', // Optionally specify the timezone
+      // Other options like weekday, timeZoneName, etc., can also be added as needed
+    };
+    const formattedDate = date.toLocaleString('en-US');
+    return ( <span>{formattedDate}</span>)
+    console.log("🚀 ~ file: Uploads.tsx:57 ~ handleTime ~ rowData:", rowData)
+  }
 
   const columns = [
-    { field: "date", header: "upload Date" },
+    { field: "date", header: "upload Date", body: handleTime },
     { field: "upload_type.name", header: "Upload Type" },
     { field: "county.name", header: "County" },
     { field: "filename", header: "File" },
@@ -64,12 +83,9 @@ const Admindash = () => {
   const Navigation = useNavigate();
   const NewUploadbtn = async () => {
     const token = localStorage.getItem("jwtToken");
-    const role = localStorage.getItem("role_id");
-
     await axios
       .get(`${urll}/upload-data/new-upload`, {
         headers: { Authorization: token },
-        params: { role },
       })
       .then((response) => {
         console.log(
