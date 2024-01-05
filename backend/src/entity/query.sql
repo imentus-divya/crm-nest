@@ -384,6 +384,41 @@ VALUES
         'q',
         'orange'
     );
+
+
+--Insert into lpcases table
+INSERT INTO
+    lpcases (
+        casefile_date,
+        case_type,
+        case_number,
+        address,
+        defendants,
+        plaintiffs,
+        estimated_claim,
+        zillow,
+        redfin,
+        repoting_date,
+        case_status,
+        county_name
+    )
+VALUES
+    (
+        '2023-07-31T12:30:00',
+        'MortgageForeclosure-Commercial-1-$50,000orLess',
+        '22-CA-010242',
+        '1510 E. Palm Ave.Tampa, FL 33605',
+        ARRAY['HACIENDA VILLAS APARTMENTS'],
+        ARRAY['ISLAND PAINTING & WATERPROOFING, INC'],
+        '38,990.00 ',
+        '385600',
+        '383699',
+        '2023-08-02T12:30:00',
+        'open',
+        'orange'
+    );
+
+
 INSERT INTO screens (name) values ('admin-dashboard-ui')
 INSERT INTO screens (name) values ('admin-dashboard')
 INSERT INTO screens (name) values ('admin-upload-data-ui')
@@ -393,9 +428,12 @@ INSERT INTO screens (name) values ('admin-upload-data')
 -- INSERT INTO screens (name) values ('user-dashboard');
 -- INSERT INTO screens (name) values ('foreclosure-ui');
 -- INSERT INTO screens (name) values ('foreclosure');
+INSERT INTO screens (name) values ('LPCourtCases-ui');
+INSERT INTO screens (name) values ('LPCourtCases');
 
 INSERT INTO screens (name) values ('admin-upload-data/new-upload-ui');
 INSERT INTO screens (name) values ('admin-upload-data/new-upload');
+
 INSERT INTO screens (name) values ('admin-manage-user-ui');
 INSERT INTO screens (name) values ('admin-manage-user');
 INSERT INTO screens (name) values ('admin-manage-user/add-data-ui');
@@ -437,6 +475,8 @@ INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/Admin/
 INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/create-role','backend',' API Admin Manage Role/Create Role ',14);
 -- save user
 INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/save-user','backend',' API Admin Save New user ',15);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/LPcases','frontend',' UI user See Courtcase Data ',16);
+INSERT INTO screen_url (url,url_type,url_description,screen_id) values ('/LPcases','backend',' API user See Courtcase Data ',17);
 
 
 
@@ -464,6 +504,8 @@ INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,7);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,8);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,9);
 INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,10);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,16);
+INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,17);
 
 
 

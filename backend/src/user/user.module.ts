@@ -9,6 +9,7 @@ import { Lov } from 'src/entity/lov.entity';
 import { Screen_url } from 'src/entity/screen_url.entity';
 import { Upload_meta_data } from 'src/entity/upload_data.entity';
 import { Roles } from 'src/entity/roles.entity';
+import { LPcases } from 'src/entity/lp_court_cases';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { Roles } from 'src/entity/roles.entity';
       Upload_meta_data,
       Roles,
       foreclosure,
+      LPcases,
     ]),
   ],
   providers: [UserService, Caches],

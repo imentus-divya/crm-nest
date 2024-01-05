@@ -21,6 +21,7 @@ import { Caches } from './middleware/cache.service';
 import { UserModule } from './user/user.module';
 import { foreclosure } from './entity/foreclosure';
 import { User_County } from './entity/user_county.entity';
+import { LPcases } from './entity/lp_court_cases';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { User_County } from './entity/user_county.entity';
         Role_Screen,
         Upload_meta_data,
         foreclosure,
+        LPcases,
         User_fileType,
         User_County,
       ],

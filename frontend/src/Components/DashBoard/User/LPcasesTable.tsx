@@ -15,47 +15,41 @@ import "../styledashb.css";
 import axios from "axios";
 import { Paginator } from "primereact/paginator";
 
-const ForeClosureTab = (props: any) => {
+const LPcasesTable = (props: any) => {
   const { isManageCol, county } = props;
+  console.log("🚀 ~ file: LPcasesTable.tsx:20 ~ LPcasesTable ~ county:", county)
   const urll = process.env.REACT_APP_BACKEND_API_URL;
 
   const columns = [
-    { field: "auction_date", header: "Auctn Date" },
+    { field: "casefile_date", header: "Case file Date" },
+    { field: "case_type", header: "Case Type" },
     { field: "case_number", header: "Case No#" },
     { field: "address", header: "Address" },
     { field: "defendants", header: "Defendants" },
     { field: "plaintiffs", header: "plainTiff" },
-    { field: "judgement", header: "Judgement" },
-    { field: "status", header: "Status" },
+    { field: "estimated_claim", header: "Judgement" },
+    { field: "case_status", header: "Case status" },
   ];
   interface Product {
-    auction_date: string;
+    casefile_date: string;
+    case_type: string;
     case_number: string;
     address: string;
     defendants: Array<string>;
     plaintiffs: Array<string>;
-    judgement: number;
-    status: string;
+    estimated_claim: number;
+    case_status: string;
     county_name: string;
-    internal_case_id: string;
-    user_comments: Array<string>;
   }
   // const displayname=localStorage.getItem("display_name")
   const [products, setProducts] = useState<Product[] | null>(null);
   const [curPage, setCurPage] = useState(1);
   const [first, setFirst] = useState(0);
-  const [newCmnt, setNewCmnt] = useState("");
-  const [selectedCaseNo, setSelectedCaseNo] = useState("");
-  const [selCaseId, setSelCaseId] = useState("");
-  const [comment, setcomment] = useState<String[]>([]);
   const [rows, setRows] = useState(5);
   const [totlaRecords, setTotalRecords] = useState(0);
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [showComnts, setShowComnts] = useState<boolean>(false);
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const [rowClick, setRowClick] = useState(true);
   const [visibleColumns, setVisibleColumns] = useState(columns);
-  const [csvData, setCsvData] = useState([]);
 
   const dt = useRef(null);
   const cities = [
@@ -69,7 +63,7 @@ const ForeClosureTab = (props: any) => {
   async function getData() {
     const token = localStorage.getItem("jwtToken");
     await axios
-      .get(`${urll}/foreclosure`, {
+      .get(`${urll}/LPcases`, {
         headers: { Authorization: token },
         params: {
           role: "1",
@@ -96,23 +90,6 @@ const ForeClosureTab = (props: any) => {
           error
         );
       });
-  }
-
-  // To add user's comment
-  async function handleUserComment() {
-    try {
-      const response = await axios.put(
-        `${urll}/foreclosure/${selectedCaseNo}/${selCaseId}`,
-        {
-          newComment: newCmnt,
-        }
-      );
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: ForeclosureTable.tsx:103 ~ addComment ~ error:",
-        error
-      );
-    }
   }
 
   useEffect(() => {
@@ -228,51 +205,6 @@ const ForeClosureTab = (props: any) => {
     }
   };
 
-  const UpdateComments = (rowData: Product) => {
-    const paragraphs: JSX.Element[] = [];
-
-    for (
-      let i = rowData.user_comments.length - 1;
-      i >= 0 && i > rowData.user_comments.length - 4;
-      i--
-    ) {
-      const item = rowData.user_comments[i];
-      paragraphs.push(<p key={i}>{item}</p>);
-    }
-    return (
-      <>
-        <div>{paragraphs}</div>
-        <Button
-          label="View All"
-          onClick={() => {
-            setSelCaseId(rowData.internal_case_id);
-            setSelectedCaseNo(rowData.case_number);
-            setcomment(rowData.user_comments);
-            setShowComnts(true);
-          }}
-        />
-      </>
-    );
-  };
-
-  const commentHandler = (
-    <div>
-      <Button
-        label="Cancel"
-        onClick={() => setShowComnts(false)}
-        className="p-button-text"
-      />
-      <Button
-        label="Confirm"
-        onClick={() => {
-          handleUserComment();
-          setShowComnts(false);
-        }}
-        autoFocus
-      />
-    </div>
-  );
-
   return (
     <div className="parent">
       {products !== null ? (
@@ -315,12 +247,6 @@ const ForeClosureTab = (props: any) => {
                 style={{ width: "20%" }}
               />
             ))}
-            <Column
-              body={UpdateComments}
-              headerStyle={{ width: "10%", minWidth: "8rem" }}
-              header={"Comments"}
-              bodyStyle={{ textAlign: "center", minWidth: "12rem" }}
-            ></Column>
           </DataTable>
 
           <Paginator
@@ -339,33 +265,6 @@ const ForeClosureTab = (props: any) => {
               setRows(e.rows);
             }}
           />
-          <Dialog
-            header="Comments"
-            visible={showComnts}
-            style={{ width: "50vw" }}
-            onHide={() => setShowComnts(false)}
-            footer={commentHandler}
-          >
-            <span
-              className="p-float-label"
-              style={{ borderBottom: "1px", padding: "5px" }}
-            >
-              <InputText
-                id="usercomment"
-                value={newCmnt}
-                onChange={(e) => setNewCmnt(e.target.value)}
-              />
-              <label htmlFor="usercomment">Add a comment</label>
-            </span>
-            <div>
-              {comment
-                .slice()
-                .reverse()
-                .map((item, index) => (
-                  <p key={index}>{item}</p>
-                ))}
-            </div>
-          </Dialog>
         </div>
       ) : (
         <p>Loading...</p>
@@ -373,4 +272,4 @@ const ForeClosureTab = (props: any) => {
     </div>
   );
 };
-export default ForeClosureTab;
+export default LPcasesTable;

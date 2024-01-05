@@ -35,10 +35,12 @@ export default function Navbar(props: any) {
   // storing county&fileType for dropdown
   let countyFileType;
 
-
   const navcloseFunc = (props: any) => {
     // Toggle the state to control the className
-    console.log("🚀 ~ file: Navbar.tsx:41 ~ navcloseFunc ~ isNavClose:", isNavClose)
+    console.log(
+      "🚀 ~ file: Navbar.tsx:41 ~ navcloseFunc ~ isNavClose:",
+      isNavClose
+    );
     setIsNavClose(!isNavClose);
 
     // Toggle the state to control the className
@@ -54,13 +56,20 @@ export default function Navbar(props: any) {
     const token = localStorage.getItem("jwtToken");
     const role = localStorage.getItem("role_id");
 
-    await axios .get(`${urll}/admin-dashboard`, {headers: { Authorization: token },})
+    await axios
+      .get(`${urll}/admin-dashboard`, { headers: { Authorization: token } })
       .then((response: AxiosResponse) => {
         // Handle successful response and update the dashboard UI
-        console.log("response recieved from token AdminDashboard verification",response);
-        countyFileType=response.data.county_FileType;
-        console.log("🚀 ~ file: Navbar.tsx:69 ~ .then ~ countyFileType:", countyFileType)
-        
+        console.log(
+          "response recieved from token AdminDashboard verification",
+          response
+        );
+        countyFileType = response.data.county_FileType;
+        console.log(
+          "🚀 ~ file: Navbar.tsx:69 ~ .then ~ countyFileType:",
+          countyFileType
+        );
+
         if (response.status == 200) {
           Navigation("/Admin/admin-dashboard");
         }
@@ -71,6 +80,9 @@ export default function Navbar(props: any) {
   };
   const foreclosure_btn = async () => {
     Navigation("/foreclosure");
+  };
+  const courtCaseBtn = async () => {
+    Navigation("/LPcases");
   };
   const upload_btn = async () => {
     const token = localStorage.getItem("jwtToken");
@@ -99,41 +111,41 @@ export default function Navbar(props: any) {
         console.error("Error fetching dashboard data:", error);
       });
   };
-  const manageUser_btn =async()=>
-  {
-    console.log("🚀 ~ file: Navbar.tsx:113 ~ Navbar ~ manageUser_btn:")
-    const token=localStorage.getItem('jwtToken')
-    await axios.get(`${urll}/admin-manage-user`,{headers:{Authorization:token}})
-    .then((response:AxiosResponse)=>
-    {
-      if(response.status==200)
-      {
-        console.log("Response recieved from manage user page",response);
-        const userDetails=response.data;
-        Navigation("/Admin/manage-user",{state:userDetails});
-        // Navigation("/Admin/upload-data", { state: metaData });
+  const manageUser_btn = async () => {
+    console.log("🚀 ~ file: Navbar.tsx:113 ~ Navbar ~ manageUser_btn:");
+    const token = localStorage.getItem("jwtToken");
+    await axios
+      .get(`${urll}/admin-manage-user`, { headers: { Authorization: token } })
+      .then((response: AxiosResponse) => {
+        if (response.status == 200) {
+          console.log("Response recieved from manage user page", response);
+          const userDetails = response.data;
+          Navigation("/Admin/manage-user", { state: userDetails });
+          // Navigation("/Admin/upload-data", { state: metaData });
+        }
+      })
+      .catch((error) => {
+        console.log("error ise: ", error);
+      });
+  };
+  const manageRoles_btn = async () => {
+    console.log("🚀 ~ file: Navbar.tsx:131 ~ Navbar ~ manageRoles_btn:");
+    const token = localStorage.getItem("jwtToken");
+    await axios
+      .get(`${urll}/admin-manage-roles`, { headers: { Authorization: token } })
+      .then((response: AxiosResponse) => {
+        if (response.status == 200) {
+          console.log("Response recieved from manage roles page", response);
+          const roleDetails = response.data;
+          Navigation("/Admin/manage-roles", { state: roleDetails });
+          // Navigation("/Admin/upload-data", { state: metaData });
+        }
+      })
+      .catch((error) => {
+        console.log("error ise: ", error);
+      });
+  };
 
-      }
-    }).catch((error)=>{console.log("error ise: ",error)})
-  }
-  const manageRoles_btn=async()=>
-  {
-    console.log("🚀 ~ file: Navbar.tsx:131 ~ Navbar ~ manageRoles_btn:")
-    const token=localStorage.getItem('jwtToken')
-    await axios.get(`${urll}/admin-manage-roles`,{headers:{Authorization:token}})
-    .then((response:AxiosResponse)=>
-    {
-      if(response.status==200)
-      {
-        console.log("Response recieved from manage roles page",response);
-        const roleDetails=response.data;
-        Navigation("/Admin/manage-roles",{state:roleDetails});
-        // Navigation("/Admin/upload-data", { state: metaData });
-
-      }
-    }).catch((error)=>{console.log("error ise: ",error)})
-  }
-  
   const logout_btn = async () => {
     const token = localStorage.getItem("jwtToken");
     const userid = localStorage.getItem("userid");
@@ -180,41 +192,6 @@ export default function Navbar(props: any) {
                 />
               </div>
             </div>
-
-            {/* <div className={`${styles.notify}`}>
-              <div className={`${styles.message}`}>
-                <Tooltip target=".custom-target-icon" />
-                <i
-                  className="custom-target-icon pi pi-envelope p-text-secondary p-overlay-badge"
-                  data-pr-tooltip="No notifications"
-                  data-pr-position="right"
-                  data-pr-at="right+5 top"
-                  data-pr-my="left center-2"
-                  style={{ fontSize: "2rem", cursor: "pointer" }}
-                >
-                  <Badge severity="danger"></Badge>
-                </i>
-              </div>
-              <div className={`${styles.profile}`}>
-                <div className="dp">
-                  <img
-                    src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
-                    className="dpicn"
-                    alt="dp"
-                  />
-                </div>
-                <p
-                  style={{
-                    color: "black",
-                    fontWeight: "100",
-                    fontSize: "15px",
-                  }}
-                >
-                  {user}
-                </p>
-              </div>
-            </div> */}
-
             <div className="message">
               <Tooltip target=".custom-target-icon" />
               <i
@@ -244,8 +221,9 @@ export default function Navbar(props: any) {
           </header>
 
           <div
-            className={`main-container-admin ${NavBoxClose ? "navboxclose" : ""
-              }`}
+            className={`main-container-admin ${
+              NavBoxClose ? "navboxclose" : ""
+            }`}
           >
             <div className={`navcontainer  ${isNavClose ? "navclose" : ""}`}>
               <nav className="nav">
@@ -259,28 +237,33 @@ export default function Navbar(props: any) {
                       <h3> Dashboard</h3>
                     </div>
 
-                    <div className="option2 nav-option" >
-                      < FaRectangleList className="nav-img" />
+                    <div className="option2 nav-option">
+                      <FaRectangleList className="nav-img" />
                       <h3>Foreclosure</h3>
                     </div>
 
-                    <div className="option2 nav-option" >
+                    <div className="option2 nav-option">
                       <FaRectangleList className="nav-img" />
                       <h3>LpCourt Cases</h3>
                     </div>
-                    
 
                     <div className="option2 nav-option" onClick={upload_btn}>
                       <FaUpload className="nav-img" />
                       <h3>Upload Data</h3>
                     </div>
 
-                    <div className="option2 nav-option" onClick={manageUser_btn}>
+                    <div
+                      className="option2 nav-option"
+                      onClick={manageUser_btn}
+                    >
                       <FaUserPlus className="nav-img" />
                       <h3> Manage User</h3>
                     </div>
 
-                    <div className="nav-option option4" onClick={manageRoles_btn}>
+                    <div
+                      className="nav-option option4"
+                      onClick={manageRoles_btn}
+                    >
                       <FaUsersGear className="nav-img" />
                       <h3>Manage Roles</h3>
                     </div>
@@ -315,12 +298,9 @@ export default function Navbar(props: any) {
                       <AiOutlineContainer className="nav-img" />
                       <h3>Foreclosure</h3>
                     </div>
-                    <div
-                      className="nav-option option1 "
-                      onClick={dashboard_btn}
-                    >
+                    <div className="nav-option option1 " onClick={courtCaseBtn}>
                       <AiOutlineFileProtect className="nav-img" />
-                      <h3>Tax Deed</h3>
+                      <h3>LP Court Cases</h3>
                     </div>
                   </div>
                 )}

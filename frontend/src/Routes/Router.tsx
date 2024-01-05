@@ -8,12 +8,13 @@ import NewUpload from "../Components/DashBoard/Admin/NewUpload";
 import Uploads from "../Components/DashBoard/Admin/Uploads";
 import DashFC from "../Components/DashBoard/User/DashFC";
 import Foreclosure from "../Components/DashBoard/User/Foreclosure";
-import ManageUser from '../Components/DashBoard/Admin/ManageUser';
-import AddUser from '../Components/DashBoard/Admin/AddUser';
-import ManageRoles from '../Components/DashBoard/Admin/ManageRoles';
-import CreateRole from '../Components/DashBoard/Admin/CreateRole';
+import ManageUser from "../Components/DashBoard/Admin/ManageUser";
+import AddUser from "../Components/DashBoard/Admin/AddUser";
+import ManageRoles from "../Components/DashBoard/Admin/ManageRoles";
+import CreateRole from "../Components/DashBoard/Admin/CreateRole";
 
 import Layout from "./Layout";
+import LPCases from "../Components/DashBoard/User/LPCases";
 
 const Router = () => {
   return (
@@ -23,10 +24,10 @@ const Router = () => {
           <Route element={<Layout />}>
             <Route path="/" element={<Login />}></Route>
 
-
             <Route element={<ProtectedRoutes />}>
               <Route path="/dashboard" element={<Dashboard />}></Route>
               <Route path="/foreclosure" element={<Foreclosure />}></Route>
+              <Route path="/LPcases" element={<LPCases />}></Route>
               <Route
                 path="/dashboard/ForeclosureData"
                 element={<DashFC />}
@@ -41,11 +42,19 @@ const Router = () => {
                 element={<NewUpload />}
               ></Route>
               <Route path="/Admin/manage-user" element={<ManageUser />}></Route>
-              <Route path="/Admin/manage-user/add-user" element={<AddUser />}></Route>
+              <Route
+                path="/Admin/manage-user/add-user"
+                element={<AddUser />}
+              ></Route>
 
-              <Route path="/Admin/manage-roles" element={<ManageRoles/>}></Route>
-              <Route path="/Admin/manage-roles/create-role" element={<CreateRole/>}></Route>
-
+              <Route
+                path="/Admin/manage-roles"
+                element={<ManageRoles />}
+              ></Route>
+              <Route
+                path="/Admin/manage-roles/create-role"
+                element={<CreateRole />}
+              ></Route>
             </Route>
           </Route>
         </Routes>

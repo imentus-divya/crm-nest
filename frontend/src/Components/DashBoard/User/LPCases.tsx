@@ -1,14 +1,11 @@
-import "../styledashb.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import Duration from "../../Calender/Duration";
-import { useState } from "react";
-import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import styles from "./user.module.css";
+import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { Button } from "primereact/button";
-import ForeClosureTab from "./ForeclosureTable";
+import LPcasesTable from "./LPcasesTable";
 
-const Foreclosure = () => {
-  const [isNavClose, setIsNavClose] = useState(false);
+export default function LPCases() {
   const [showForm, setShowForm] = useState(true);
   const [isManageCol, setIsManageCol] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState("");
@@ -23,7 +20,7 @@ const Foreclosure = () => {
           <div className="fc-container">
             <div className="fc-header-box">
               <div className="header-box-text">
-                <h2>Foreclosure</h2>
+                <h2>LP Court Cases</h2>
                 <p>Here's what happening with your track today</p>
               </div>
 
@@ -81,15 +78,11 @@ const Foreclosure = () => {
             </div>
 
             <div className={`fc-box-two ${styles.ftable}`}>
-              <ForeClosureTab
-                isManageCol={isManageCol}
-                county={selectedCounty}
-              />
+              <LPcasesTable isManageCol={isManageCol} county={selectedCounty} />
             </div>
           </div>
         </div>
       </div>
     </>
   );
-};
-export default Foreclosure;
+}
