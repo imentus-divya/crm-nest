@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { Toast } from "primereact/toast";
-import { Password } from "primereact/password";
 const urll = process.env.REACT_APP_BACKEND_API_URL;
 var display_name: string;
 
@@ -40,18 +39,13 @@ const Login = () => {
   //  check url access
 
   const loginbtn = async () => {
-    console.log("submit event");
-    console.log(InputVal);
     // setErrors(formValidate(InputVal));
-    console.log("errors are : ", errors);
 
     if (formValidate(InputVal)) {
-      console.log("Form submitted with data:", InputVal);
       await axios
         .post(`${urll}/login`, InputVal)
         .then((response) => {
-          console.log("response of login : ", response);
-          if (response.status == 200) {
+          if (response.status === 200) {
             // stores the cache of ui urls
             localStorage.setItem(
               "UIroles",
@@ -72,32 +66,18 @@ const Login = () => {
 
             localStorage.setItem("display_name", display_name);
 
-            const role = response.data.role_id;
             const token = localStorage.getItem("jwtToken");
             if (response.data.username.includes("admin")) {
               setTimeout(async () => {
                 await axios
                   .get(`${urll}/admin-dashboard`, {
                     headers: { Authorization: token },
-                   
                   })
                   .then((response) => {
-                    console.log(
-                      "response recieved from token AdminDashboard verification",
-                      response
-                    );
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                       localStorage.setItem(
                         "county_fileType",
                         JSON.stringify(response.data.county_FileType)
-                      );
-                      const reqRoleid = response.data.reqRole_id;
-                      const reqURL = "/Admin/admin-dashboard";
-                      console.log(
-                        "role id to request : ",
-                        role,
-                        "requested url : ",
-                        reqURL
                       );
                       Navigation("/Admin/admin-dashboard");
                     }
@@ -108,18 +88,13 @@ const Login = () => {
               }, 1000);
             } else {
               setTimeout(async () => {
-                console.log("data from user dashboard");
                 // const token = localStorage.getItem("jwtToken");
                 await axios
                   .get(`${urll}/dashboard`, {
                     headers: { Authorization: token },
                   })
                   .then((response) => {
-                    console.log(
-                      "response recieved from user  Dashboard verification",
-                      response
-                    );
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                       Navigation("/dashboard");
                     }
                   })
@@ -152,7 +127,6 @@ const Login = () => {
     }
   };
   const formValidate = (inputs: inputType): boolean => {
-    console.log("form recieved ", inputs);
     let bugs: Record<string, string> = {};
     if (!inputs.username || inputs.username.length > 25) {
       bugs.username = "Username is Required";
@@ -164,7 +138,6 @@ const Login = () => {
       bugs.password = "Password Length must be greater than 3";
     }
     setErrors(bugs);
-    console.log("bugs are ", bugs);
     return Object.keys(bugs).length === 0;
 
     // if (Object.keys(bugs).length > 0)
@@ -226,10 +199,6 @@ const Login = () => {
             )}
 
             <label>
-              {/* <>
-              
-             { console.log("check",InputVal.rememberme)}
-              </>  */}
               <input
                 type="checkbox"
                 name="remember"

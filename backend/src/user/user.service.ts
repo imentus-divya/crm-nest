@@ -60,7 +60,7 @@ export class UserService {
     column1Value: string,
     column2Value: string,
     valuesToAdd: string[],
-  ): Promise<void> {
+  ): Promise<string[]> {
     console.log(
       '🚀 ~ file: user.service.ts:58 ~ UserService ~ valuesToAdd:',
       valuesToAdd,
@@ -86,5 +86,6 @@ export class UserService {
 
     // Save the modified entity
     await this.foreclosureRepo.save(entityToUpdate);
+    return entityToUpdate.user_comments
   }
 }

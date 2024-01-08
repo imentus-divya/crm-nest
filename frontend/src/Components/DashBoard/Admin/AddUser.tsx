@@ -2,32 +2,18 @@ import React, { ChangeEvent, useState ,useRef} from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { InputText } from "primereact/inputtext";
 import axios, { AxiosResponse } from "axios";
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
 import { useLocation } from "react-router-dom";
 import { Button } from 'primereact/button';
 import { Toast } from "primereact/toast";
 
-interface County {
-    name: string;
-    code: string;
-}
-interface FileType {
-    name: string;
-    code: string;
-}
-interface Role {
-    id: number;
-    name: string;
-    date:Date;
-  }
+
 const AddUser = () => {
   const toast = useRef<Toast>(null);
 
     const urll = process.env.REACT_APP_BACKEND_API_URL;
     const location = useLocation();
     const roles = location.state;
-    let roleOptions;
     console.log("🚀 ~ file: AddUser.tsx:25 ~ AddUser ~ roles:", roles)
    
 

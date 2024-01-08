@@ -1,11 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-import { DataTable, DataTableStateEvent } from "primereact/datatable";
+import { useState, useEffect } from "react";
+import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { Tooltip } from "primereact/tooltip";
 import { InputSwitch } from "primereact/inputswitch";
-import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { MultiSelect, MultiSelectChangeEvent } from "primereact/multiselect";
 import {
   DataTableRowEditCompleteEvent,
@@ -16,8 +13,7 @@ import axios from "axios";
 import { Paginator } from "primereact/paginator";
 
 const LPcasesTable = (props: any) => {
-  const { isManageCol, county } = props;
-  console.log("🚀 ~ file: LPcasesTable.tsx:20 ~ LPcasesTable ~ county:", county)
+  const { isManageCol, county, dt } = props;
   const urll = process.env.REACT_APP_BACKEND_API_URL;
 
   const columns = [
@@ -51,14 +47,14 @@ const LPcasesTable = (props: any) => {
   const [rowClick, setRowClick] = useState(true);
   const [visibleColumns, setVisibleColumns] = useState(columns);
 
-  const dt = useRef(null);
-  const cities = [
-    { name: "Orange", code: "NY" },
-    { name: "Hillsborough", code: "RM" },
-    { name: "London", code: "LDN" },
-    { name: "Istanbul", code: "IST" },
-    { name: "Paris", code: "PRS" },
-  ];
+  // const dt = useRef(null);
+  // const cities = [
+  //   { name: "Orange", code: "NY" },
+  //   { name: "Hillsborough", code: "RM" },
+  //   { name: "London", code: "LDN" },
+  //   { name: "Istanbul", code: "IST" },
+  //   { name: "Paris", code: "PRS" },
+  // ];
 
   async function getData() {
     const token = localStorage.getItem("jwtToken");
@@ -73,10 +69,6 @@ const LPcasesTable = (props: any) => {
         },
       })
       .then((response) => {
-        console.log(
-          "🚀 ~ file: ForeclosureTable.tsx:86 ~ .then ~ response.data.items:",
-          response.data.items
-        );
         if (products) {
           setProducts(products.concat(response.data.items));
         } else {
@@ -168,42 +160,8 @@ const LPcasesTable = (props: any) => {
         className="w-full sm:w-20rem coltoggle"
         display="chip"
       />
-
-      <Tooltip target=".export-buttons>button" position="bottom" />
-
-      <div className=" save flex align-items-center justify-content-center ">
-        <Button
-          type="button"
-          icon="pi pi-file"
-          rounded
-          onClick={() => exportCSV(false)}
-          data-pr-tooltip="CSV"
-        />
-      </div>
     </div>
   );
-  interface CSVExportOptions {
-    filename: string;
-    // properties needed for configuring the CSV export
-  }
-
-  interface TypeExportCSV {
-    exportCSV: (options: CSVExportOptions) => void;
-    // Add other properties or methods if available
-  }
-  const exportCSV = (selectionOnly: boolean) => {
-    // dt.current.exportCSV({ selectionOnly });
-    if (dt.current !== null && dt.current !== undefined) {
-      const dtCurrent = dt.current as TypeExportCSV;
-      const options: CSVExportOptions = {
-        filename: "exported_data.csv", // Example filename
-        // Add other necessary properties based on the requirements
-      };
-      dtCurrent.exportCSV(options);
-    } else {
-      console.error("dt.current is null or undefined.");
-    }
-  };
 
   return (
     <div className="parent">
@@ -216,6 +174,7 @@ const LPcasesTable = (props: any) => {
             ref={dt}
             showGridlines
             rows={rows}
+            style={{ fontSize: "smaller" }}
             rowsPerPageOptions={[5, 10, 25, 50]}
             removableSort
             selectionMode={rowClick ? null : "checkbox"}

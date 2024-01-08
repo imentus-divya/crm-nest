@@ -1,20 +1,41 @@
 import "../styledashb.css";
-import { useLocation, useNavigate } from "react-router-dom";
 import Duration from "../../Calender/Duration";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import styles from "./user.module.css";
 import { Button } from "primereact/button";
 import ForeClosureTab from "./ForeclosureTable";
 
 const Foreclosure = () => {
-  const [isNavClose, setIsNavClose] = useState(false);
-  const [showForm, setShowForm] = useState(true);
   const [isManageCol, setIsManageCol] = useState(false);
-  const [selectedCounty, setSelectedCounty] = useState("");
 
   //County list
   const counties = ["Hillsborough", "orange", "London", "Madison"];
+  const [selectedCounty, setSelectedCounty] = useState(counties[0]);
+  const dt = useRef(null);
+
+  interface CSVExportOptions {
+    filename: string;
+    // properties needed for configuring the CSV export
+  }
+
+  interface TypeExportCSV {
+    exportCSV: (options: CSVExportOptions) => void;
+    // Add other properties or methods if available
+  }
+  const exportCSV = (selectionOnly: boolean) => {
+    // dt.current.exportCSV({ selectionOnly });
+    if (dt.current !== null && dt.current !== undefined) {
+      const dtCurrent = dt.current as TypeExportCSV;
+      const options: CSVExportOptions = {
+        filename: "exported_data.csv", // Example filename
+        // Add other necessary properties based on the requirements
+      };
+      dtCurrent.exportCSV(options);
+    } else {
+      console.error("dt.current is null or undefined.");
+    }
+  };
 
   return (
     <>
@@ -34,56 +55,57 @@ const Foreclosure = () => {
 
             {/* inputs */}
             <div className="header-box-form">
-              {showForm && (
-                <div className={`${styles.countyRow}`}>
-                  <div className={`${styles.countyList}`}>
-                    <div>
-                      {/* <p style={{ margin: "5px" }}>County Name</p> */}
-                      <div className={``}>
-                        <Dropdown
-                          value={selectedCounty}
-                          onChange={(e: DropdownChangeEvent) =>
-                            setSelectedCounty(e.value)
-                          }
-                          options={counties}
-                          // optionLabel="hjj"
-                          placeholder={"Select a county"}
-                          style={{ border: "0px !important" }}
-                          className={`${styles.countyListD}`}
-                        />
-                      </div>
-                    </div>
-                    <div className={`${styles.countyListSubmit}`}>
-                      <Button label="Submit" />
-                    </div>
-                    <div className={`${styles.countyListSubmit}`}>
-                      <Button label="Export" icon="pi pi-download" disabled />
-                    </div>
-                  </div>
-                  <div className={`${styles.countyList1}`}>
-                    <div className="card flex justify-content-center">
+              {" "}
+              <div className={`${styles.countyRow}`}>
+                <div className={`${styles.countyList}`}>
+                  <div>
+                    {/* <p style={{ margin: "5px" }}>County Name</p> */}
+                    <div className={``}>
                       <Dropdown
                         value={selectedCounty}
-                        onClick={() => {
-                          setIsManageCol(!isManageCol);
-                        }}
-                        // onChange={(e: DropdownChangeEvent) =>
-                        //   setSelectedCounty(e.value)
-                        // }
-                        // options={counties}
-                        placeholder="Manage col"
-                        className={`"w-full md:w-14rem"`}
+                        onChange={(e: DropdownChangeEvent) =>
+                          setSelectedCounty(e.value)
+                        }
+                        options={counties}
+                        placeholder={"Select a county"}
+                        style={{ border: "0px !important" }}
+                        className={`${styles.countyListD}`}
                       />
                     </div>
                   </div>
+                  <div>
+                    <Button label="Submit" size="small" />
+                  </div>
+                  <div>
+                    <Button
+                      label="Export"
+                      size="small"
+                      icon="pi pi-download"
+                      onClick={() => exportCSV(false)}
+                      data-pr-tooltip="CSV"
+                    />
+                  </div>
                 </div>
-              )}
+                <div className={`${styles.countyList1}`}>
+                  <Button
+                    severity="secondary"
+                    size="small"
+                    value={selectedCounty}
+                    onClick={() => {
+                      setIsManageCol(!isManageCol);
+                    }}
+                  >
+                    Manage col
+                  </Button>
+                </div>
+              </div>
             </div>
 
             <div className={`fc-box-two ${styles.ftable}`}>
               <ForeClosureTab
                 isManageCol={isManageCol}
                 county={selectedCounty}
+                dt={dt}
               />
             </div>
           </div>
