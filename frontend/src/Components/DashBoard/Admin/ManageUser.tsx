@@ -37,7 +37,7 @@ const ManageUser = () => {
     }
     
     const EditUserBtn = (id:any) => {
-        console.log("aaaaaaaaaaaaaaa",id)
+        
         return (<h3 className="editBtn">Edit</h3>  );
       };
     const columns = [
