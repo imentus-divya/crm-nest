@@ -4,12 +4,12 @@ import { AppModule } from './app.module';
 // import { Caching } from './middleware/caching.service';
 import { Caches } from './middleware/cache.service';
 
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
+  app.setGlobalPrefix('crm');
   // app.use( Caching);
-   // instantiate caching function   
+  // instantiate caching function
   //  @UseInterceptors(CacheInterceptor)
 
   // const cachingService = app.get(Caching);
@@ -17,8 +17,8 @@ async function bootstrap() {
 
   const cacheService = app.get(Caches);
   await cacheService.Caching();
-  await app.listen(8000);  
-  console.log("Server is running....")
+  await app.listen(8000);
+  console.log('Server is running....');
 }
 
 bootstrap();
