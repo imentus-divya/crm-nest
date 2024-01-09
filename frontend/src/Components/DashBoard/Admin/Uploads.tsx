@@ -37,8 +37,11 @@ const Admindash = () => {
   const handleButtonClick = (rowData: any) => {
     // Handle button click for the specific row data
     console.log("Button clicked for:", rowData);
-    console.log("🚀 ~ file: Uploads.tsx:40 ~ handleButtonClick ~ rowData:", rowData)
-    const filepath = `http://localhost:8000/${rowData.view_data}`;
+    console.log(
+      "🚀 ~ file: Uploads.tsx:40 ~ handleButtonClick ~ rowData:",
+      rowData
+    );
+    const filepath = `${process.env.REACT_APP_BACKEND_API_URL}/${rowData.view_data}`;
     const fileName = "qwertyuio.csv";
     const aTag = document.createElement("a");
     aTag.href = filepath;
@@ -48,28 +51,28 @@ const Admindash = () => {
     aTag.remove();
   };
   const download_Btn = (rowData: any) => {
-    console.log("🚀 ~ file: Uploads.tsx:51 ~ Admindash ~ rowData:", rowData)
+    console.log("🚀 ~ file: Uploads.tsx:51 ~ Admindash ~ rowData:", rowData);
     return (
       <Button label="Download" onClick={() => handleButtonClick(rowData)} />
     );
   };
   const handleTime = (rowData: any) => {
-    console.log("🚀 ~ file: Uploads.tsx:57 ~ handleTime ~ rowData:", rowData)
+    console.log("🚀 ~ file: Uploads.tsx:57 ~ handleTime ~ rowData:", rowData);
     const date = new Date(rowData?.date);
     const options = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-      timeZone: 'UTC', // Optionally specify the timezone
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      timeZone: "UTC", // Optionally specify the timezone
       // Other options like weekday, timeZoneName, etc., can also be added as needed
     };
-    const formattedDate = date.toLocaleString('en-US');
-    return ( <span>{formattedDate}</span>)
-    console.log("🚀 ~ file: Uploads.tsx:57 ~ handleTime ~ rowData:", rowData)
-  }
+    const formattedDate = date.toLocaleString("en-US");
+    return <span>{formattedDate}</span>;
+    console.log("🚀 ~ file: Uploads.tsx:57 ~ handleTime ~ rowData:", rowData);
+  };
 
   const columns = [
     { field: "date", header: "upload Date", body: handleTime },
