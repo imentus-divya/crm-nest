@@ -1,17 +1,16 @@
-import "../styledashb.css";
+import React, { useRef, useState } from "react";
 import Duration from "../../Calender/Duration";
-import { useRef, useState } from "react";
-import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import styles from "./user.module.css";
+import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { Button } from "primereact/button";
-import ForeClosureTab from "./ForeclosureTable";
+import LPcasesTable from "./LPcasesTable";
 
-const Foreclosure = () => {
+export default function LPCases() {
   const [isManageCol, setIsManageCol] = useState(false);
-
   //County list
   const counties = ["Hillsborough", "orange", "London", "Madison"];
   const [selectedCounty, setSelectedCounty] = useState(counties[0]);
+
   const dt = useRef(null);
 
   interface CSVExportOptions {
@@ -44,7 +43,7 @@ const Foreclosure = () => {
           <div className="fc-container">
             <div className="fc-header-box">
               <div className="header-box-text">
-                <h2>Foreclosure</h2>
+                <h2>LP Court Cases</h2>
                 <p>Here's what happening with your track today</p>
               </div>
 
@@ -55,7 +54,6 @@ const Foreclosure = () => {
 
             {/* inputs */}
             <div className="header-box-form">
-              {" "}
               <div className={`${styles.countyRow}`}>
                 <div className={`${styles.countyList}`}>
                   <div>
@@ -102,7 +100,7 @@ const Foreclosure = () => {
             </div>
 
             <div className={`fc-box-two ${styles.ftable}`}>
-              <ForeClosureTab
+              <LPcasesTable
                 isManageCol={isManageCol}
                 county={selectedCounty}
                 dt={dt}
@@ -113,5 +111,4 @@ const Foreclosure = () => {
       </div>
     </>
   );
-};
-export default Foreclosure;
+}

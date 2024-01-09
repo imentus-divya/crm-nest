@@ -1,7 +1,7 @@
 .NavWrap {
   position: fixed;
   height: 100%;
-  z-index: 9;
+  z-index: 9999;
 }
 .searchBox {
   border: 1px solid;

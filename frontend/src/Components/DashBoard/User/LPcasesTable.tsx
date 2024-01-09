@@ -1,62 +1,52 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { InputSwitch } from "primereact/inputswitch";
-import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { MultiSelect, MultiSelectChangeEvent } from "primereact/multiselect";
 import {
   DataTableRowEditCompleteEvent,
   DataTableSelectionMultipleChangeEvent,
 } from "primereact/datatable";
-import styles from "./user.module.css";
 import "../styledashb.css";
 import axios from "axios";
 import { Paginator } from "primereact/paginator";
-import { Toast } from "primereact/toast";
 
-const ForeClosureTab = (props: any) => {
+const LPcasesTable = (props: any) => {
   const { isManageCol, county, dt } = props;
   const urll = process.env.REACT_APP_BACKEND_API_URL;
 
-  const toast = useRef<Toast>(null);
-
   const columns = [
-    { field: "auction_date", header: "Auctn Date" },
+    { field: "casefile_date", header: "Case file Date" },
+    { field: "case_type", header: "Case Type" },
     { field: "case_number", header: "Case No#" },
     { field: "address", header: "Address" },
     { field: "defendants", header: "Defendants" },
     { field: "plaintiffs", header: "plainTiff" },
-    { field: "judgement", header: "Judgement" },
-    { field: "status", header: "Status" },
+    { field: "estimated_claim", header: "Judgement" },
+    { field: "case_status", header: "Case status" },
   ];
   interface Product {
-    auction_date: string;
+    casefile_date: string;
+    case_type: string;
     case_number: string;
     address: string;
     defendants: Array<string>;
     plaintiffs: Array<string>;
-    judgement: number;
-    status: string;
+    estimated_claim: number;
+    case_status: string;
     county_name: string;
-    internal_case_id: string;
-    user_comments: Array<string>;
   }
   // const displayname=localStorage.getItem("display_name")
   const [products, setProducts] = useState<Product[] | null>(null);
   const [curPage, setCurPage] = useState(1);
   const [first, setFirst] = useState(0);
-  const [newCmnt, setNewCmnt] = useState("");
-  const [selectedCaseNo, setSelectedCaseNo] = useState("");
-  const [selCaseId, setSelCaseId] = useState("");
-  const [all_comment, setcomment] = useState<String[]>([]);
   const [rows, setRows] = useState(5);
   const [totlaRecords, setTotalRecords] = useState(0);
-  const [showComnts, setShowComnts] = useState<boolean>(false);
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const [rowClick, setRowClick] = useState(true);
   const [visibleColumns, setVisibleColumns] = useState(columns);
+
   // const dt = useRef(null);
   // const cities = [
   //   { name: "Orange", code: "NY" },
@@ -69,7 +59,7 @@ const ForeClosureTab = (props: any) => {
   async function getData() {
     const token = localStorage.getItem("jwtToken");
     await axios
-      .get(`${urll}/foreclosure`, {
+      .get(`${urll}/LPcases`, {
         headers: { Authorization: token },
         params: {
           role: "1",
@@ -79,13 +69,8 @@ const ForeClosureTab = (props: any) => {
         },
       })
       .then((response) => {
-        console.log(
-          "🚀 ~ file: ForeclosureTable.tsx:87 ~ .then ~ response.data.items:",
-          response.data.items
-        );
         if (products) {
-          // setProducts(products.concat(response.data.items));
-          setProducts(response.data.items);
+          setProducts(products.concat(response.data.items));
         } else {
           setProducts(response.data.items);
         }
@@ -99,41 +84,16 @@ const ForeClosureTab = (props: any) => {
       });
   }
 
-  // To add user's comment
-  async function handleUserComment() {
-    try {
-      const response = await axios.put(
-        `${urll}/foreclosure/${selectedCaseNo}/${selCaseId}`,
-        {
-          newComment: newCmnt,
-        }
-      );
-      if (response.status === 200) {
-        toast.current?.show({
-          severity: "success",
-          summary: "Comment Added",
-        });
-        await getData();
-        setcomment(response.data);
-      }
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: ForeclosureTable.tsx:103 ~ addComment ~ error:",
-        error
-      );
-    }
-  }
-
-  // useEffect(() => {
-  //   getData();
-  // }, [curPage]);
+  useEffect(() => {
+    getData();
+  }, [curPage]);
 
   useEffect(() => {
     if (products) {
       products!.length = 0;
     }
     getData();
-  }, [county, curPage]);
+  }, [county]);
 
   const onColumnToggle = (event: MultiSelectChangeEvent) => {
     let selectedColumns = event.value;
@@ -166,12 +126,11 @@ const ForeClosureTab = (props: any) => {
   };
 
   const getProducts = () => {
-    // let res = products!.slice(
-    //   first,
-    //   first + rows > products!.length ? products!.length : first + rows
-    // );
-    // return res;
-    return products!;
+    let res = products!.slice(
+      first,
+      first + rows > products!.length ? products!.length : first + rows
+    );
+    return res;
   };
 
   const header = (
@@ -204,59 +163,12 @@ const ForeClosureTab = (props: any) => {
     </div>
   );
 
-  const UpdateComments = (rowData: Product) => {
-    const paragraphs: JSX.Element[] = [];
-
-    for (
-      let i = rowData.user_comments.length - 1;
-      i >= 0 && i > rowData.user_comments.length - 4;
-      i--
-    ) {
-      const item = rowData.user_comments[i];
-      paragraphs.push(<p key={i}>{item}</p>);
-    }
-    return (
-      <>
-        <div>{paragraphs}</div>
-        <Button
-          size="small"
-          label="View All"
-          text
-          raised
-          onClick={() => {
-            setSelCaseId(rowData.internal_case_id);
-            setSelectedCaseNo(rowData.case_number);
-            setcomment(rowData.user_comments);
-            setShowComnts(true);
-          }}
-        />
-      </>
-    );
-  };
-
-  const commentHandler = (
-    <div>
-      <Button
-        label="Cancel"
-        onClick={() => setShowComnts(false)}
-        className="p-button-text"
-      />
-      <Button
-        label="Confirm"
-        onClick={() => {
-          handleUserComment();
-          setShowComnts(false);
-        }}
-        autoFocus
-      />
-    </div>
-  );
-
   return (
     <div className="parent">
       {products !== null ? (
         <div className="def">
           <DataTable
+            // value={products.slice(first, first + rows)}
             value={getProducts()}
             first={first}
             ref={dt}
@@ -294,12 +206,6 @@ const ForeClosureTab = (props: any) => {
                 style={{ width: "20%" }}
               />
             ))}
-            <Column
-              body={UpdateComments}
-              headerStyle={{ width: "10%", minWidth: "8rem" }}
-              header={"Comments"}
-              bodyStyle={{ textAlign: "center", minWidth: "12rem" }}
-            ></Column>
           </DataTable>
 
           <Paginator
@@ -308,56 +214,16 @@ const ForeClosureTab = (props: any) => {
             totalRecords={totlaRecords}
             rowsPerPageOptions={[5, 10, 25, 50]}
             onPageChange={(e) => {
-              console.log(
-                "🚀 ~ file: ForeclosureTable.tsx:307 ~ ForeClosureTab ~ e:",
-                e
-              );
               if (
                 products.length < e.rows * (e.page + 1) &&
                 products.length < totlaRecords
               ) {
                 setCurPage(e.page + 1);
               }
-              console.log("rows: ", e.rows);
-
               setFirst(e.first);
               setRows(e.rows);
             }}
           />
-          <Dialog
-            header="Comments"
-            visible={showComnts}
-            style={{ width: "50vw" }}
-            onHide={() => setShowComnts(false)}
-            // footer={commentHandler}
-          >
-            <div className="card flex flex-wrap justify-content-center">
-              <span className="p-input-icon-right">
-                <i
-                  className="pi pi-send"
-                  onClick={() => {
-                    handleUserComment();
-                    setNewCmnt("");
-                  }}
-                />
-                <InputText
-                  id="usercomment"
-                  value={newCmnt}
-                  onChange={(e) => setNewCmnt(e.target.value)}
-                  placeholder="Add a new comment"
-                />
-              </span>
-            </div>
-            <p>Previous Comments</p>
-            <div style={{ borderTop: "1px solid" }} className={`${styles.FadeIn}`}>
-              {all_comment
-                .slice()
-                .reverse()
-                .map((item, index) => (
-                  <p key={index}>{item}</p>
-                ))}
-            </div>
-          </Dialog>
         </div>
       ) : (
         <p>Loading...</p>
@@ -365,4 +231,4 @@ const ForeClosureTab = (props: any) => {
     </div>
   );
 };
-export default ForeClosureTab;
+export default LPcasesTable;
