@@ -29,7 +29,7 @@ import { LPcases } from './entity/lp_court_cases';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      password: 'postgres',
+      password: '123',
       username: 'postgres',
       entities: [
         User,
