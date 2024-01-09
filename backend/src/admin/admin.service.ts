@@ -13,6 +13,7 @@ import { UpdateAdminDto } from './dto/update-admin.dto';
 import { Express } from 'express';
 import { Lov } from 'src/entity/lov.entity';
 import { User_fileType } from 'src/entity/user_filetype.entity';
+import { User_County } from 'src/entity/user_county.entity';
 
 
 
@@ -22,8 +23,8 @@ export class AdminService {
     @InjectRepository(Upload_meta_data) private metadataRepository: Repository<Upload_meta_data>,
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Roles) private rolesRepository: Repository<Roles>,
-    @InjectRepository(User_fileType) private filetypeRepository: Repository<User_fileType>
-
+    @InjectRepository(User_fileType) private filetypeRepository: Repository<User_fileType>,
+    @InjectRepository(User_County) private countyRepository: Repository<User_fileType>,
 
   ) { }
   adminDetails = {};
@@ -160,7 +161,7 @@ export class AdminService {
       console.log("🚀 ~ file: admin.service.ts:146 ~ AdminService ~ SaveUser ~ e:", e)
       }
      }
-     const UpdateUserFileType=async(userID:number):Promise<any>=>
+     const UpdateUserFileType=async(userID:number):Promise<User_fileType>=>
      {
       const userFileType=userData.selectedFiletype;
       console.log("🚀 ~ file: admin.service.ts:163 ~ AdminService ~ userFileType:", userFileType)
@@ -168,36 +169,56 @@ export class AdminService {
         console.log(`User with ID ${userID} not found`);
         return;
       }
-  
       // Fetch file types by their IDs
       const fileTypes_id= userFileType.map((filetypes)=>filetypes.id)
       console.log("🚀 ~ file: admin.service.ts:174 ~ AdminService ~ fileTypes_id:", fileTypes_id,"type is :")
-    
-    
       // Create associations between the user and file types
-      const fileType_obj=new User_fileType();
-      
       const userFileTypes = fileTypes_id.map(fileType => {
+        const fileType_obj=new User_fileType();
         fileType_obj.user_id = userID;
-        console.log("🚀 ~  userFileTypes ~ userID:", userID,"--type is-- :",typeof(userID))
+        console.log("🚀 ~ userID:",  fileType_obj.user_id,"--type is-- :",typeof( fileType_obj.user_id))
         fileType_obj.filetype_id = parseInt(fileType);
-        console.log("🚀 userFileTypes ~ parseInt(fileType):", parseInt(fileType))
-
-        return userFileType;
+        console.log("🚀 fileType:", fileType_obj.filetype_id,typeof(fileType_obj.filetype_id))  
+        console.log("🚀 ~ file: admin.service.ts:187 ~ AdminService ~ userFileTypes ~ fileType_obj:", fileType_obj)
+         // Save  to the database
+        this.filetypeRepository.save(fileType_obj);
+        // return fileType_obj;
       });
-      console.log("🚀 ~ file: admin.service.ts:184 ~ AdminService ~ userFileTypes ~ userFileTypes:", userFileTypes)
-  
-      // Save the associations to the database
-      // await this.filetypeRepository.save(userFileTypes);
+     
   
       // console.log(`File types associated with user ${userID}`);
     } 
+    const UpdateUserCounty=async(userID:number):Promise<any>=>
+    {  
+     if (!userID) {
+       console.log(`User with ID ${userID} not found`);
+       return;
+     }
+     // Fetch file types by their IDs
+     const User_County_id=userData.selectedCounty;
+     console.log("🚀 ~ file: admin.service.ts:163 ~ AdminService ~ userFileType:", User_County_id)
+
+     const county_ids= User_County_id.map((county) => county.id)
+     console.log("🚀 admin.service.ts:201 ~ county:", county_ids ,"type is : ",typeof(county_ids))
+
+     // Create associations between the user and file types
      
+     const userCounty= county_ids.map(county => {
+       const County_obj=new User_County()
+       County_obj.user_id = userID;
+       County_obj.county_id = parseInt(county);
+        // Save  to the database
+        this.countyRepository.save(County_obj)
+       // return fileType_obj;
+     });
+    }
+    
      SaveNewUser().then(
       (userId)=>
       {
         console.log("New User ID:", userId);
-        UpdateUserFileType(userId)
+        UpdateUserFileType(userId);
+        UpdateUserCounty(userId);
       }
       
       )

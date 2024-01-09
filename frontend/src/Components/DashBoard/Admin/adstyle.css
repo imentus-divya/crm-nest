@@ -360,3 +360,20 @@
   justify-content: center;
   gap: 20px;
 }
+/* edit user btn */
+.editBtn{
+  color:var(--blue2);
+  font-weight: 100;
+  font-style: italic;
+  text-decoration: underline;
+  transition: all 0.5s;
+}
+.editBtn:hover
+{
+ color:var(--txt-black)
+}
+.editBtn:active {
+  transform: translateY(4px);
+}
+
+

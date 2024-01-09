@@ -12,6 +12,6 @@ export class User_County{
 
     @ManyToOne(()=>Lov,lov_id=>lov_id.id)
     @JoinColumn({name:"county"})
-    lov_id:number
+    county_id:number
 
 }

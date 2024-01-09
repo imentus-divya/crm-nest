@@ -13,10 +13,11 @@ import { Upload_meta_data } from 'src/entity/upload_data.entity';
 import { User } from 'src/entity/user.entity';
 import { Roles } from 'src/entity/roles.entity';
 import { User_fileType } from 'src/entity/user_filetype.entity';
+import { User_County } from 'src/entity/user_county.entity';
 
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Role_Screen,Lov,Screen_url,Upload_meta_data,User,Roles, User_fileType ])],
+  imports:[TypeOrmModule.forFeature([Role_Screen,Lov,Screen_url,Upload_meta_data,User,Roles, User_fileType,User_County ])],
   controllers: [AdminController],
   providers: [AdminService,Caches],
 })

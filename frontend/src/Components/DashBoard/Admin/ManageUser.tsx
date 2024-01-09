@@ -29,30 +29,25 @@ const ManageUser = () => {
     const [checked, setChecked] = useState<boolean>(true);
 
     const ActiveUserBtn = (userDetails: any) => {
-        console.log(userDetails)
         let checkd = true;
         const condition = userDetails.active ? '' : checkd = false;
         return (
             <InputSwitch checked={checkd} onChange={(e: InputSwitchChangeEvent) => setChecked(e.value)} />
         );
     }
-    const EditUserBtn =async(userDetails: any)=>
-    {
-        console.log(userDetails)
-        let checkd = true;
-        const condition = userDetails.active ? '' : checkd = false;
-        return (
-            <InputSwitch checked={checkd} onChange={(e: InputSwitchChangeEvent) => setChecked(e.value)} />
-        );
-        
-    }
+    
+    const EditUserBtn = (id:any) => {
+        console.log("aaaaaaaaaaaaaaa",id)
+        return (<h3 className="editBtn">Edit</h3>  );
+      };
     const columns = [
         { field: "first_name", header: "Name", },
         { field: "email", header: "Email Address" },
         { field: "role_id.name", header: "Role" },
         { field: "tenant_id", header: "Profile" },
         { field: "true", header: "User status", body: ActiveUserBtn },
-        { field: "null", header: "Edit", body:ActiveUserBtn}]
+        { field: "id", header: "Edit", body:EditUserBtn((userDetails.id))}
+      ]
 
 
     const addUserbtn = async () => {
@@ -112,7 +107,6 @@ const ManageUser = () => {
                                             header={col.header}
                                             body={col.body}
                                         />
-                                        
                                     ))}
                                 </DataTable>
                             </div>
