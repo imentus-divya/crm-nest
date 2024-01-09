@@ -161,7 +161,7 @@ const AddUser = () => {
     return (
         <>
             <div className="dashboard-container">
-      <Toast ref={toast} />
+      <Toast ref={toast} content=""/>
 
                 <div className="main-content-admin">
                     <div className="main-admin">

@@ -155,7 +155,7 @@ const Login = () => {
 
   return (
     <div className="container">
-      <Toast ref={toast} />
+      <Toast ref={toast} content="" />
       <div className="heading-data">
         <h2>CRM App</h2>
       </div>
