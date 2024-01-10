@@ -14,9 +14,9 @@ import { User_County } from 'src/entity/user_county.entity';
 import { LPcases } from 'src/entity/lp_court_cases';
 export const dataSourceOptions:DataSourceOptions={
     type: 'postgres',
-      host: 'localhost',
+      host: '35.154.90.180',
       port: 5432,
-      password: '123',
+      password: 'imentus123',
       username: 'postgres',
       entities: [
         User,
@@ -33,7 +33,7 @@ export const dataSourceOptions:DataSourceOptions={
         User_County,
         Groups
       ],
-      database: 'crmDB',
+      database: 'crm',
       synchronize: true,
       logging: true,
       migrationsTableName:"crm_Migration_table",
