@@ -22,34 +22,37 @@ import { UserModule } from './user/user.module';
 import { foreclosure } from './entity/foreclosure';
 import { User_County } from './entity/user_county.entity';
 import { LPcases } from './entity/lp_court_cases';
+import { dataSourceOptions } from 'db/data-source';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      password: 'imentus123',
-      // password: 'postgres',
-      username: 'postgres',
-      entities: [
-        User,
-        Lov_type,
-        Lov,
-        Roles,
-        Screens,
-        Screen_url,
-        Role_Screen,
-        Upload_meta_data,
-        foreclosure,
-        LPcases,
-        User_fileType,
-        User_County,
-      ],
-      database: 'crm_db',
-      synchronize: true,
-      logging: true,
-    }),
+    // TypeOrmModule.forRoot({
+    //   type: 'postgres',
+    //   host: 'localhost',
+    //   port: 5432,
+    //   password: '123',
+    //   username: 'postgres',
+    //   entities: [
+    //     User,
+    //     Lov_type,
+    //     Lov,
+    //     Roles,
+    //     Screens,
+    //     Screen_url,
+    //     Role_Screen,
+    //     Upload_meta_data,
+    //     foreclosure,
+    //     LPcases,
+    //     User_fileType,
+    //     User_County,
+    //   ],
+    //   database: 'crm_db',
+    //   synchronize: true,
+    //   logging: true,
+    //   migrationsTableName:"crm_Migration_table",
+    //   migrations:[__dirname + '/migrations/**/*{.ts,.js}']
+    // }),
+    TypeOrmModule.forRoot(dataSourceOptions),
     CacheModule.register({ isGlobal: true }),
     TypeOrmModule.forFeature([Screen_url, Role_Screen, Lov, Roles]),
     AuthModule,

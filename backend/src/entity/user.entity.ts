@@ -7,16 +7,17 @@ import {
 } from 'typeorm';
 import { Roles } from './roles.entity';
 import { Lov } from './lov.entity';
+import { Groups } from './groups.entity';
 
 @Entity({ name: 'user' })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({length:50})
   first_name: string;
 
-  @Column()
+  @Column({length:50})
   last_name: string;
 
   @Column()
@@ -25,7 +26,7 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({length:50 , unique:true})
   username: string;
 
   @Column({ nullable: true })
@@ -58,4 +59,9 @@ export class User {
 
   @Column({ default: true })
   active: boolean;
+
+  // groups
+  @ManyToOne(()=>Groups,group_id=>group_id.id)
+  @JoinColumn({name:"group"})
+  group_id:number
 }

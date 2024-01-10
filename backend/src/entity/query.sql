@@ -1,7 +1,5 @@
 -- Insertion in LOV_TYPE table
-INSERT INTO
-    lov_type (name)
-VALUES
+INSERT INTO lov_type (name)VALUES
     ('country');
 
 INSERT INTO
@@ -428,8 +426,8 @@ INSERT INTO screens (name) values ('admin-upload-data')
 -- INSERT INTO screens (name) values ('user-dashboard');
 -- INSERT INTO screens (name) values ('foreclosure-ui');
 -- INSERT INTO screens (name) values ('foreclosure');
-INSERT INTO screens (name) values ('LPCourtCases-ui');
-INSERT INTO screens (name) values ('LPCourtCases');
+-- INSERT INTO screens (name) values ('LPCourtCases-ui');
+-- INSERT INTO screens (name) values ('LPCourtCases');
 
 INSERT INTO screens (name) values ('admin-upload-data/new-upload-ui');
 INSERT INTO screens (name) values ('admin-upload-data/new-upload');
@@ -536,11 +534,17 @@ INSERT INTO catalog_lov (name,type_id)
 VALUES ('Health',1); 
 
 --INSERTION INTO TENANT TABLE
-INSERT INTO tenant (name, username, password, active, country_code)
-VALUES ('tenant1', 't1', '1234', true, 4);
+-- INSERT INTO tenant (name, username, password, active, country_code)
+-- VALUES ('tenant1', 't1', '1234', true, 4);
 
 --insertion into company table
 
-INSERT INTO company (name, active, tenant_id, country_id, company_type_id,connection_string)
-VALUES ('Company1', true, 'f81d17d6-7a37-4c28-8b3f-f2be4b7bfd74', 4, 1,'postgres://postgres:123@localhost:5432/crm_db');
+-- INSERT INTO company (name, active, tenant_id, country_id, company_type_id,connection_string)
+-- VALUES ('Company1', true, 'f81d17d6-7a37-4c28-8b3f-f2be4b7bfd74', 4, 1,'postgres://postgres:123@localhost:5432/crm_db');
 
+
+--INSERTYION INTO GROUPS
+INSERT INTO groups (id,name) VALUES (0,'Admin');    //manually added admin's group 
+INSERT INTO groups (name) VALUES ('A');
+INSERT INTO groups (name) VALUES ('B');
+INSERT INTO groups (name) VALUES ('c');

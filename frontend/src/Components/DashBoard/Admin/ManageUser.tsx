@@ -22,31 +22,35 @@ const ManageUser = () => {
     const Navigation=useNavigate();
 
     useEffect(() => {
-        setProducts(userDetails);
+        setDetails(userDetails);
     }, []);
 
-    const [products, setProducts] = useState([]);
+    const [details, setDetails] = useState([]);
     const [checked, setChecked] = useState<boolean>(true);
 
-    const ActiveUserBtn = (userDetails: any) => {
+    const ActiveUserBtn = (isActive:any) => {
         let checkd = true;
-        const condition = userDetails.active ? '' : checkd = false;
+        const condition = isActive.active ? '' : checkd = false;
         return (
             <InputSwitch checked={checkd} onChange={(e: InputSwitchChangeEvent) => setChecked(e.value)} />
         );
     }
     
-    const EditUserBtn = (id:any) => {
-        
-        return (<h3 className="editBtn">Edit</h3>  );
+    const EditUserBtn = (userId:any) => {
+        console.log("🚀 ~ EditUserBtn ~ user:",userId)
+        return (
+        <h3 className="editBtn" onClick={()=>Move(userId.id)} >Edit</h3>  );
       };
+      const Move=(id:number)=>{
+        console.log("check",id)
+      }
     const columns = [
         { field: "first_name", header: "Name", },
         { field: "email", header: "Email Address" },
         { field: "role_id.name", header: "Role" },
         { field: "tenant_id", header: "Profile" },
-        { field: "true", header: "User status", body: ActiveUserBtn },
-        { field: "id", header: "Edit", body:EditUserBtn((userDetails.id))}
+        { field: "true", header: "User status", body: ActiveUserBtn},
+        { field: "id", header: "Edit", body:EditUserBtn}
       ]
 
 
@@ -84,16 +88,14 @@ const ManageUser = () => {
                                 </Button>
                             </div>
                         </div>
-                        {/* <>{console.log("test", products)}</> */}
-                        {/* <p>hshshshs${meta_data_values}</p> */}
+                      
                         <div className="bottom-content">
                             <h4>List Of User</h4>
 
                             <div className="card" style={{ width: "100%" }}>
                                 <DataTable
-                                    value={products}
+                                    value={details}
                                     selectionMode="single"
-                                    //   onSelectionChange={(e) => handleCell(e)}
                                     tableStyle={{ minWidth: "50rem", width: '80rem' }}
                                     className="upload-table user-table-header "
                                     paginator
