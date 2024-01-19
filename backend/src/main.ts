@@ -17,8 +17,9 @@ async function bootstrap() {
 
   const cacheService = app.get(Caches);
   await cacheService.Caching();
-  await app.listen(8000);
-  console.log('Server is running....');
+  const port=8000;
+  await app.listen(port);
+  console.log(`Server is running.....${port}`);
 }
 
 bootstrap();

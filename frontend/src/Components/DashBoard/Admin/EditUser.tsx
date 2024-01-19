@@ -11,13 +11,15 @@ import { Axios } from "axios";
 import { useNavigate } from "react-router-dom";
 
 
-
-const AddUser = () => {
+const EditUser = () => {
   const toast = useRef<Toast>(null);
   const Navigation=useNavigate();
   const urll = process.env.REACT_APP_BACKEND_API_URL;
+  const location = useLocation();
+  const user_details = location.state;
+  console.log("🚀 ~ EditUser ~ user_details:", user_details)
   // to access dropdown values coming from admin dashboard
-
+  
 
   const [value, setValue] = useState<string>("");
   const [selectedCounty, setSelectedCounty] = useState([]);
@@ -79,14 +81,16 @@ const AddUser = () => {
     fileType: {};
     groups:{};
     roles:{};
+    // userID will be send to specify the presence of user in DB
+    userID:number
   }
   const [InputVal, setInputVal] = useState<InputValues>({
-    firstname: "",
-    lastname: "",
-    email: "",
-    username: "",
-    password: "",
-    confirm_password: "",
+    firstname:user_details[0].first_name,
+    lastname: user_details[0].last_name,
+    email: user_details[0].email,
+    username: user_details[0].username,
+    password: user_details[0].password,
+    confirm_password: user_details[0].password,
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -94,35 +98,33 @@ const AddUser = () => {
   const inputEvent = (event: ChangeEvent<HTMLInputElement>): void => {
     setInputVal({ ...InputVal, [event.target.name]: event.target.value });
   };
-  const Save_btn = async () => {
+  const Update_btn = async () => {
     const AllInputs = {
       InputVal: InputVal,
       selectedCounty: selectedCounty,
       selectedFiletype: selectedFiletype,
       selectedrole:selectedrole,
-      selectedGroup:selectedGroup
+      selectedGroup:selectedGroup,
+      userID:user_details[0].id
     };
-    console.log(
-      "🚀 ~ INput To Send When creating new user :--AddUser,tsx",
-      AllInputs
-    );
+  
     if (formValidate(AllInputs)) {
-      console.log("form is about to be submitted with data : ", AllInputs);
+      // console.log("form is about to be submitted with data : ", AllInputs);
       const token = localStorage.getItem("jwtToken");
       await axios
-        .post(`${urll}/save-user`, AllInputs, {
+        .post(`${urll}/update-user`, AllInputs,{
           headers: { Authorization: token },
         })
         .then((response: AxiosResponse) => {
           if (response.status == 200) {
             toast.current?.show({
               severity: "success",
-              summary: "Added New User",
+              summary: "Updated Details",
             });
           }
           toast.current?.show({
             severity: "error",
-            summary: "Error at User Creation",
+            summary: "Error at User Updation",
             detail: response.data.message,
             life: 8000,
           });
@@ -199,7 +201,7 @@ const AddUser = () => {
           <div className="main-admin">
             <div className="top-content top-adduser">
               <FaArrowLeftLong className="back-btn" onClick={backButton}/>
-              <h2>Add User</h2>
+              <h2>Edit User</h2>
             </div>
 
             <div className="add-user-box">
@@ -215,6 +217,12 @@ const AddUser = () => {
                 <label htmlFor="username">Firstname</label>
                 {errors?<p className="error-class">{errors.firstname}</p>:''}
               </span>
+
+              {/*  */}
+           
+        
+             
+
               {/* lastname */}
               <span className="p-float-label">
                 <InputText
@@ -342,7 +350,7 @@ const AddUser = () => {
 
               <div className="buttons-submit-cancel">
                 <div className="card flex justify-content-center flex-columns">
-                  <Button label="Save" size="large" onClick={Save_btn} />
+                  <Button label="Update" size="large" onClick={Update_btn} />
                 </div>
                 <div className="card flex justify-content-center">
                   <Button label="Cancel" size="large" />
@@ -355,4 +363,4 @@ const AddUser = () => {
     </>
   );
 };
-export default AddUser;
+export default EditUser;

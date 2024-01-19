@@ -9,6 +9,7 @@ import { Express } from 'express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { User } from 'src/entity/user.entity';
+import { CreateUserDto } from './dto/user-dto';
 
 
 // import { CreateAdminDto } from './dto/create-admin.dto';
@@ -100,6 +101,19 @@ export class AdminController {
 async SaveUser(@Req() request: ExpressRequest): Promise<User[]> {
 return this.adminService.SaveUser(request);}
 
+// edit-user
+@UseGuards(AuthGuard)
+@HttpCode(HttpStatus.OK)
+@Post('/edit-user')
+async EditUser(@Req() request: ExpressRequest){
+return this.adminService.EditUser(request);}
+
+// update user btn
+@UseGuards(AuthGuard)
+@HttpCode(HttpStatus.OK)
+@Post('/update-user')
+async UpdateUser(@Body() createUserDto: CreateUserDto){
+return this.adminService.UpdateUser(createUserDto);}
 
 }
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Not } from 'typeorm';
 import { Request } from 'express';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -6,6 +7,7 @@ import { Role_Screen } from 'src/entity/role_screen.entity';
 import { Screen_url } from 'src/entity/screen_url.entity';
 import { Lov } from 'src/entity/lov.entity';
 import { Roles } from 'src/entity/roles.entity';
+import { Groups } from 'src/entity/groups.entity';
 
 
 
@@ -16,6 +18,7 @@ export class Caches {
   private county = {};
   private fileType = {};
   private roles={};
+  private groups={};
 
 
   constructor(
@@ -23,14 +26,16 @@ export class Caches {
     @InjectRepository(Screen_url) private screenurlRepository: Repository<Screen_url>,
     @InjectRepository(Lov) private lovRepository: Repository<Lov>,
     @InjectRepository(Roles) private rolesRepository: Repository<Roles>,
+    @InjectRepository(Groups) private groupsRepository: Repository<Groups>,
+
 
 
   ) { }
   // caching role access based on api
   async Caching(): Promise<any> {
-    console.log("In caching function  : ", this.role_url_api);
+    // console.log("In caching function  : ", this.role_url_api);
     if (Object.keys(this.role_url_api || this.role_url_ui).length === 0) {
-      console.log("cache is  empty...query will execute");
+      // console.log("cache is  empty...query will execute");
 
       try {
         const caching = await this.rolescreenRepository
@@ -64,9 +69,7 @@ export class Caches {
   // caching dropdown options for county & filetype
   async CachingDropdown(): Promise<any> {
     console.log("In caching DropdownValues function  : ")
-    console.log("🚀  Caching ~ Object.keys( county and fileType) === 0:", Object.keys(this.county).length === 0, "file type :", Object.keys(this.fileType).length === 0)
-
-    if ((Object.keys(this.county).length === 0) && (Object.keys(this.fileType).length === 0)) {
+    if ((Object.keys(this.county).length === 0) || (Object.keys(this.fileType).length === 0)) {
       console.log("cache is empty...query will execute for county and filetype")
       try {
         const caching_county =  await this.lovRepository.find({
@@ -76,8 +79,6 @@ export class Caches {
           relations: ['type'] // Ensure this corresponds to the correct relation in LOV entity
         });
      
-        
-
         // Fetching caching_fileType
         const caching_fileType = await this.lovRepository.find({
           where: {
@@ -88,7 +89,7 @@ export class Caches {
 
         this.county = caching_county;
         this.fileType = caching_fileType;
-        console.log("🚀 ~ file: cache.service.ts:79 ~ Caches ~ CachingDropdown ~ county:", this.county, "and fileType : ", this.fileType)
+        // console.log("🚀 ~ file: cache.service.ts:79 ~ Caches ~ CachingDropdown ~ county:", this.county, "and fileType : ", this.fileType)
 
         return {
           "county": this.county,
@@ -109,20 +110,26 @@ export class Caches {
 
   }
 
-  // caching roles table to show in dropdown at time of creating user
-  async CachingRoles():Promise<any>
+  // caching roles , groups and table to show in dropdown at time of creating user
+  async CachingRolesGroups():Promise<any>
   {
   console.log("🚀 ~ file: cache.service.ts:114 ~ Caches ~ CachingRoles:")
-  if (Object.keys(this.roles || this.roles).length === 0)
+  if (Object.keys(this.roles).length === 0 || Object.keys(this.groups).length === 0  )
   {
-    console.log("cache is  empty at roles ...query will execute");
+    console.log("cache is  empty at roles and groups ...query will execute");
 
     try {
-      const cachingRole = await this.rolesRepository.find();
-      // console.log("🚀 ~ file: cache.service.ts:122 ~ Caches ~ cachingRole:", cachingRole)
+      const cachingRole = await this.rolesRepository.find({where: {
+        name: Not("Admin"),
+      },});
+      const cachingGroups = await this.groupsRepository.find({where: {
+        name: Not("Admin")},});
+      console.log("🚀 ~ Caches ~ cachingGroups:", cachingGroups)
+
     
       return {
-        "roles_present":cachingRole
+        "roles_present":cachingRole,
+        "groups_present":cachingGroups
       };
 
     } catch (error) {
@@ -132,8 +139,8 @@ export class Caches {
   }
   else {
     return {
-      "role_url_uii": this.role_url_ui,
-      "role_url_apii": this.role_url_api
+      "roles_present":this.roles,
+        "groups_present":this.groups
     };
 
   

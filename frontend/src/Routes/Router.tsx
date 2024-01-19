@@ -12,6 +12,7 @@ import ManageUser from "../Components/DashBoard/Admin/ManageUser";
 import AddUser from "../Components/DashBoard/Admin/AddUser";
 import ManageRoles from "../Components/DashBoard/Admin/ManageRoles";
 import CreateRole from "../Components/DashBoard/Admin/CreateRole";
+import EditUser from "../Components/DashBoard/Admin/EditUser";
 
 import Layout from "./Layout";
 import LPCases from "../Components/DashBoard/User/LPCases";
@@ -55,6 +56,11 @@ const Router = () => {
                 path="/Admin/manage-roles/create-role"
                 element={<CreateRole />}
               ></Route>
+               <Route
+                path="/Admin/manage-user/edit-user"
+                element={<EditUser />}
+              ></Route>
+
             </Route>
           </Route>
         </Routes>

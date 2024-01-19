@@ -38,16 +38,17 @@ export class AuthGuard implements CanActivate {
       request['user'] = payload;
 
       // CHECK URL FUNCTION
-      console.log("🚀 ~ file: auth.guard.ts:39 ------------ payload:",request.user)
+      // console.log("🚀 ~ file: auth.guard.ts:39 ------------ payload:",request.user)
 
     try {
       //  expecting an array of any type for role_url_apii.
       const { role_url_apii } = await this.cacheService.Caching();
       console.log("🚀 ~ file: auth.guard.ts:49 ~ AuthGuard role_url_apii:", role_url_apii)
-      // console.log("Cached data recieved for backend : ", role_url_apii);
+
       const req_role_id = request.user.role_id;
+      console.log("🚀 ~ AuthGuard ~ req_role_id:", req_role_id)
       const req_api = request.path;
-      console.log("🚀 ~ file: auth.guard.ts:50 ~ AuthGuard ~ canActivate ~ req_api:", req_api)
+      console.log("🚀 ~ file: auth.guard.ts:50 ~ AuthGuard ~ req_api:", req_api)
       
       let checkApi = false; // Initialize checkApi as false
       

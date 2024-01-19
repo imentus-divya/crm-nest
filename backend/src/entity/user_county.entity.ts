@@ -6,9 +6,12 @@ export class User_County{
     @PrimaryGeneratedColumn()
     id:number
 
-    @ManyToOne(()=>User,user_id=>user_id.id)
+    @ManyToOne(()=>User,(user_id)=>user_id.county_id)
     @JoinColumn({name:"user_id"})
-    user_id:number
+    user_id:any;
+    // @ManyToOne((type) => User, (user) => user.counties, { eager: true })
+    // @JoinColumn({name:"user_id"}) // <-- Add this
+    // user: User;
 
     @ManyToOne(()=>Lov,lov_id=>lov_id.id)
     @JoinColumn({name:"county"})

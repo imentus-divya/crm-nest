@@ -3,11 +3,14 @@ import {
   PrimaryGeneratedColumn,
   Column,
   JoinColumn,
-  ManyToOne,
+  ManyToOne,OneToMany
 } from 'typeorm';
 import { Roles } from './roles.entity';
 import { Lov } from './lov.entity';
 import { Groups } from './groups.entity';
+import { User_County } from './user_county.entity';
+import { User_fileType } from './user_filetype.entity';
+
 
 @Entity({ name: 'user' })
 export class User {
@@ -35,15 +38,13 @@ export class User {
   @Column({ nullable: true })
   expiry_token: Date | null;
 
-  
-
   @ManyToOne(() => Roles, (roles) => roles.id)
   @JoinColumn({ name: 'role_id' })
   role_id: any
 
 
   @Column() 
-  //   static now will be retrieved from catalog DB company table
+  // static now will be retrieved from catalog DB company table
   tenant_id: number;
 
   @Column()
@@ -61,7 +62,18 @@ export class User {
   active: boolean;
 
   // groups
-  @ManyToOne(()=>Groups,group_id=>group_id.id)
+  @ManyToOne(()=>Groups,(group_id)=>group_id.user_id)
   @JoinColumn({name:"group"})
-  group_id:number
+  group_id:Groups
+
+
+  // user_county (bidirectional)
+  @OneToMany(() => User_County, (county_id) => county_id.user_id, { eager: false })
+  county_id: User_County[];
+
+  // user_filecounty(bidirectional)
+  @OneToMany(() => User_fileType, (filetype_id) => filetype_id.user_id, { eager: false })
+  filetype_id: User_fileType[];
+
+
 }

@@ -37,39 +37,16 @@ const CreateRole = () => {
                         </div>
 
                         <div className="add-user-box">
-                            <span className="p-float-label">
-                                <InputText id="rolename" className="p-inputtext-lg" value={value} onChange={(e) => setValue(e.target.value)} />
-                                <label htmlFor="rolename">rolename</label>
-                            </span>
-                            <span className="p-float-label">
-                <InputTextarea id="description" value={value} onChange={(e) => setValue(e.target.value)} rows={5} cols={30} />
-                <label htmlFor="description">Description</label>
-            </span>
-                            
-                            <span className="p-float-label">
-                                <InputText id="email" className="p-inputtext-lg" value={value} onChange={(e) => setValue(e.target.value)} />
-                                <label htmlFor="username">Email</label>
-                            </span>
-                            <span className="p-float-label">
-                                <InputText id="password" className="p-inputtext-lg" value={value} onChange={(e) => setValue(e.target.value)} />
-                                <label htmlFor="password">Password</label>
-                            </span>
-                            <span className="p-float-label">
-                                <InputText id="password" className="p-inputtext-lg" value={value} onChange={(e) => setValue(e.target.value)} />
-                                <label htmlFor="password">Confirm Password</label>
-                            </span>
-                            <div className="card flex justify-content-center " >
-                                <Dropdown value={selectedCounty} style={{
-                                    width: '300px', paddingTop: '5px', paddingBottom: '5px'
-                                }} onChange={(e) => setSelectedCounty(e.value)} options={counties} optionLabel="name"
-                                    placeholder="Select County" className="w-full md:w-14rem" />
-                            </div>
-                            <div className="card flex justify-content-center " >
-                                <Dropdown value={selectedFiletype} style={{
-                                    width: '300px', paddingTop: '5px', paddingBottom: '5px'
-                                }} onChange={(e) => setSelectedFiletype(e.value)} options={FileTypes} optionLabel="name"
-                                    placeholder="Select FileType" className="w-full md:w-14rem" />
-                            </div>
+
+                        {/*  role name */}
+                        <div className="card flex flex-column align-items-center  ">
+                        <InputText type="text" className="p-inputtext-lg" placeholder="Role Name" />
+                        </div>
+                        {/* text area */}
+                        <div className="card flex justify-content-center">
+                        <InputTextarea value={value} onChange={(e) => setValue(e.target.value)} rows={5} cols={30} />
+                        </div>
+            
                             <div className="buttons-submit-cancel">
                                 <div className="card flex justify-content-center flex-columns">
                                     <Button label="Create" size="large" />
@@ -80,14 +57,10 @@ const CreateRole = () => {
                             </div>
 
                         </div>
-
-
-
-
-
                     </div>
                 </div>
             </div>
+            
         </>
     )
 }

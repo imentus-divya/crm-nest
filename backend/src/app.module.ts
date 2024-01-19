@@ -23,6 +23,7 @@ import { foreclosure } from './entity/foreclosure';
 import { User_County } from './entity/user_county.entity';
 import { LPcases } from './entity/lp_court_cases';
 import { dataSourceOptions } from 'db/data-source';
+import { Groups } from './entity/groups.entity';
 
 @Module({
   imports: [
@@ -46,7 +47,7 @@ import { dataSourceOptions } from 'db/data-source';
     //     User_fileType,
     //     User_County,
     //   ],
-    //   database: 'crm_db',
+    //   database: 'crmDB',
     //   synchronize: true,
     //   logging: true,
     //   migrationsTableName:"crm_Migration_table",
@@ -54,7 +55,7 @@ import { dataSourceOptions } from 'db/data-source';
     // }),
     TypeOrmModule.forRoot(dataSourceOptions),
     CacheModule.register({ isGlobal: true }),
-    TypeOrmModule.forFeature([Screen_url, Role_Screen, Lov, Roles]),
+    TypeOrmModule.forFeature([Screen_url, Role_Screen, Lov, Roles ,Groups]),
     AuthModule,
     AdminModule,
     UserModule,

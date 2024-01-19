@@ -1,3 +1,7 @@
+:root{
+  --blue2:#3B82F6;
+  --txt-black:#3e4444;
+}
 .dashboard-container {
   display: flex;
   position: relative;
@@ -226,7 +230,7 @@
   padding: 0.45rem 1.25rem;
   font-size: 1rem;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s,
-    box-shadow 0.2s;
+  box-shadow 0.2s;
   border-radius: 6px;
 }
 

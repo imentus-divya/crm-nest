@@ -197,7 +197,7 @@ const NewUpload = () => {
 
   return (
     <>
-       <Toast ref={toast} content="" />
+       <Toast ref={toast}  />
       <div className="dashboard-container dashboard-container-lg">
      
         <div className="main-content-admin">

@@ -38,5 +38,10 @@ export class AuthService {
     console.log('User not found');
     return [];
   }
+  async Health(rer:Request)
+  {
+    console.log("health");
+    return 'server is running';
+  }
 
 }

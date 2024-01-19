@@ -10,6 +10,7 @@ import { Screen_url } from 'src/entity/screen_url.entity';
 import { Upload_meta_data } from 'src/entity/upload_data.entity';
 import { Roles } from 'src/entity/roles.entity';
 import { LPcases } from 'src/entity/lp_court_cases';
+import { Groups } from 'src/entity/groups.entity';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { LPcases } from 'src/entity/lp_court_cases';
       Roles,
       foreclosure,
       LPcases,
+      Groups
     ]),
   ],
   providers: [UserService, Caches],

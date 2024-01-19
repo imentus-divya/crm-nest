@@ -75,10 +75,17 @@ const Login = () => {
                   })
                   .then((response) => {
                     if (response.status === 200) {
+                      console.log("response recieved from admin dashboard  : ",response.data)
+                      // storing dropdown values (roles,county,filetype,groups in local storage to use in other files)
                       localStorage.setItem(
                         "county_fileType",
                         JSON.stringify(response.data.county_FileType)
                       );
+                      localStorage.setItem(
+                        "role_groups",
+                        JSON.stringify(response.data.role_groups)
+                      );
+                      // const role_groups=response.data.role_groups;
                       Navigation("/Admin/admin-dashboard");
                     }
                   })
@@ -122,7 +129,8 @@ const Login = () => {
             });
           }
         });
-    } else {
+    } 
+    else {
       console.log("Form has validation errors");
     }
   };
@@ -139,23 +147,11 @@ const Login = () => {
     }
     setErrors(bugs);
     return Object.keys(bugs).length === 0;
-
-    // if (Object.keys(bugs).length > 0)
-    // {
-    //   // Show toast notifications for each error
-    //   console.log("ahahhaha", Object.keys(bugs).length, "keys", Object.keys(bugs))
-    //   // Object.keys(bugs).forEach((key) =>
-    //   // {
-    //   //   console.log("loop keys", key)
-    //   //   // toast.error(bugs[key]);
-    //   // });
-    //   // return;
-    // }
   };
 
   return (
     <div className="container">
-      <Toast ref={toast} content="" />
+      <Toast ref={toast}  />
       <div className="heading-data">
         <h2>CRM App</h2>
       </div>

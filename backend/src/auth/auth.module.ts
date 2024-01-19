@@ -10,10 +10,11 @@ import { Role_Screen } from 'src/entity/role_screen.entity';
 import { Screen_url } from 'src/entity/screen_url.entity';
 import { Lov } from 'src/entity/lov.entity';
 import { Roles } from 'src/entity/roles.entity';
+import { Groups } from 'src/entity/groups.entity';
 
 
 @Module({
-  imports:[TypeOrmModule.forFeature([User,Role_Screen,Screen_url,Lov,Roles]) , JwtModule.register({
+  imports:[TypeOrmModule.forFeature([User,Role_Screen,Screen_url,Lov,Roles,Groups]) , JwtModule.register({
     global: true,
     secret: jwtConstants.secret,
     signOptions: { expiresIn: '60s' },

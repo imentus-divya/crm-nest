@@ -6,9 +6,13 @@ export class User_fileType{
     @PrimaryGeneratedColumn()
     id:number
 
-    @ManyToOne(()=>User,user_id=>user_id.id)
+    // @ManyToOne(()=>User,user_id=>user_id.id)
+    // @JoinColumn({name:"user_id"})
+    // user_id:number;
+    @ManyToOne(()=>User,(user_id)=>user_id.filetype_id)
     @JoinColumn({name:"user_id"})
-    user_id:number
+    user_id:any;
+
 
     @ManyToOne(()=>Lov,lov_id=>lov_id.id)
     @JoinColumn({name:"file_type"})

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { Toast } from "primereact/toast";
 import { useLocation } from "react-router-dom";
 import { InputSwitch, InputSwitchChangeEvent } from "primereact/inputswitch";
+import { response } from "express";
 
 
 
@@ -41,8 +42,16 @@ const ManageUser = () => {
         return (
         <h3 className="editBtn" onClick={()=>Move(userId.id)} >Edit</h3>  );
       };
-      const Move=(id:number)=>{
+      const Move=async(id:number)=>{
         console.log("check",id)
+        const token = localStorage.getItem("jwtToken");
+        await axios.post(`${urll}/edit-user`,{"id":id},{headers:{Authorization:token}}).then((response) => {
+            // console.log("🚀 ~ Move ~ Response:", response)
+        Navigation("/Admin/manage-user/edit-user",{state:response.data})
+
+        })
+        // Navigation(`/Admin/manage-user/edit-user/${id}`)
+
       }
     const columns = [
         { field: "first_name", header: "Name", },
