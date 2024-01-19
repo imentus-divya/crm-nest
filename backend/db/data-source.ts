@@ -12,6 +12,7 @@ import { Groups } from 'src/entity/groups.entity';
 import { foreclosure } from 'src/entity/foreclosure';
 import { User_County } from 'src/entity/user_county.entity';
 import { LPcases } from 'src/entity/lp_court_cases';
+import { Module_Screen } from 'src/entity/module_screen.entity';
 export const dataSourceOptions:DataSourceOptions={
     type: 'postgres',
       host: '35.154.90.180',
@@ -31,7 +32,8 @@ export const dataSourceOptions:DataSourceOptions={
         LPcases,
         User_fileType,
         User_County,
-        Groups
+        Groups,
+        Module_Screen
       ],
       database: 'crm',
       synchronize: true,

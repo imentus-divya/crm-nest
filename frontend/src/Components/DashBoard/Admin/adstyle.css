@@ -30,7 +30,7 @@
 }
 .main-admin {
   /* height: calc(100vh - 70px); */
-  width: 100%;
+  /* width: 100%; */
   /* overflow-y: scroll; */
   overflow-x: hidden;
   padding: 40px 30px 30px 30px;
@@ -315,9 +315,9 @@
 .buttons-submit-cancel{
   width: 100%;
   /* background-color: red; */
-  padding: 10px 50px 30px 10px;
+  padding-top: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   gap: 20px;
 }
 /* edit user btn */
@@ -337,3 +337,28 @@
 }
 
 
+/* CREATE ROLE PAGE */
+.create-role-form{
+  width: 70vw;
+  margin: auto;
+  /* background-color: #3B82F6; */
+  border :1px solid #3B82F6;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px 10px 30px 10px;
+  justify-content: center;
+  gap: 30px;
+  overflow:hidden;
+}
+.screens-options{
+  display: flex;
+  gap: 20px;
+}
+.chip-box{
+  width: 100%;;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}

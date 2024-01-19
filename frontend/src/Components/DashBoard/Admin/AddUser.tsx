@@ -68,18 +68,18 @@ const AddUser = () => {
     confirm_password: string;
   }
 
-  interface AllInputValues {
-    firstname: string;
-    lastname: string;
-    email: string;
-    username: string;
-    password: string;
-    confirm_password: string;
-    county: {};
-    fileType: {};
-    groups:{};
-    roles:{};
-  }
+  // interface AllInputValues {
+  //   firstname: string;
+  //   lastname: string;
+  //   email: string;
+  //   username: string;
+  //   password: string;
+  //   confirm_password: string;
+  //   county: {};
+  //   fileType: {};
+  //   groups:{};
+  //   roles:{};
+  // }
   const [InputVal, setInputVal] = useState<InputValues>({
     firstname: "",
     lastname: "",

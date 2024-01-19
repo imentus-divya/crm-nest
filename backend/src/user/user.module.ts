@@ -11,6 +11,7 @@ import { Upload_meta_data } from 'src/entity/upload_data.entity';
 import { Roles } from 'src/entity/roles.entity';
 import { LPcases } from 'src/entity/lp_court_cases';
 import { Groups } from 'src/entity/groups.entity';
+import { Module_Screen } from 'src/entity/module_screen.entity';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { Groups } from 'src/entity/groups.entity';
       Roles,
       foreclosure,
       LPcases,
-      Groups
+      Groups,
+      Module_Screen
     ]),
   ],
   providers: [UserService, Caches],

@@ -9,7 +9,7 @@ const ProtectedRoutes = () =>
   const reqURL = location.pathname;
   const Roleid = localStorage.getItem('role_id');
   const reqRoleid:number= Roleid!==null ? parseInt(Roleid):0;
-  console.log("requested URL at Protected routes : ", "--", reqURL, "requested role_id : ", reqRoleid)
+  // console.log("requested URL at Protected routes : ", "--", reqURL, "requested role_id : ", reqRoleid)
 
 
   const isAuthenticated = () =>
@@ -21,7 +21,7 @@ const ProtectedRoutes = () =>
       let cached_UI_url:cache_data_type[] |null=null;
       if (cached_UI !== null) {
         cached_UI_url = JSON.parse(cached_UI);
-        console.log("🚀 ~ file: ProtectedRoutes.tsx:26 ~ cached_UI_url:", cached_UI_url)
+        // console.log("🚀 ~ file: ProtectedRoutes.tsx:26 ~ cached_UI_url:", cached_UI_url)
         // console.log("UI roles: ", cached_UI_url);
     
         if (cached_UI_url !== null) 

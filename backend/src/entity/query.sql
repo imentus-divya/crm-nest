@@ -1,32 +1,15 @@
 -- Insertion in LOV_TYPE table
-INSERT INTO lov_type (name)VALUES
-    ('country');
-
-INSERT INTO
-    lov_type (name)
-VALUES
-    ('company_type');
-
-INSERT INTO
-    lov_type (name)
-VALUES
-    ('county');
-
-INSERT INTO
-    lov_type (name)
-VALUES
-    ('file_type');
+INSERT INTO lov_type (name)VALUES ('country');
+INSERT INTO lov_type (name) VALUES ('company_type');
+INSERT INTO lov_type (name)VALUES ('county');
+INSERT INTO lov_type (name) VALUES('file_type');
 
 -- Insertion into LOV table
-INSERT INTO
-    lov (name, type_id)
-VALUES
-    ('IND', 1);
+INSERT INTO lov (name, type_id) VALUES  ('IND', 1);
+INSERT INTO lov (name, type_id) VALUES ('USA', 1);
+    
 
-INSERT INTO
-    lov (name, type_id)
-VALUES
-    ('USA', 1);
+    
 
 INSERT INTO
     lov (name, type_id)
@@ -267,6 +250,31 @@ INSERT INTO role_screen (role_id,screen_id) VALUES ( 1 ,24);
 
 
 
+--INSERTION INTO GROUPS
+INSERT INTO groups (id,name) VALUES (0,'Admin');    --manually added admin's group 
+INSERT INTO groups (name) VALUES ('A');
+INSERT INTO groups (name) VALUES ('B');
+INSERT INTO groups (name) VALUES ('c');
+
+--INSERTION INTO MODULE SCREEN
+INSERT INTO module_screen (name) VALUES ('USER DASHBOARD');
+INSERT INTO module_screen (name) VALUES ('FORECLOSURE');
+INSERT INTO module_screen (name) VALUES ('LP COURTCASES');
+INSERT INTO module_screen (name) VALUES ('ADMIN DASHBOARD');
+INSERT INTO module_screen(name) VALUES ('FILE UPLOADS');
+INSERT INTO module_screen (name) VALUES ('NEW FILE UPLOAD');
+INSERT INTO module_screen (name) VALUES ('MANAGE USER');
+INSERT INTO module_screen (name) VALUES ('MANAGE ROLE');
+INSERT INTO module_screen(name) VALUES ('MANAGE SCREEN');
+
+
+
+
+
+
+
+
+
 
 
 
@@ -320,8 +328,3 @@ VALUES ('Health',1);
 -- VALUES ('Company1', true, 'f81d17d6-7a37-4c28-8b3f-f2be4b7bfd74', 4, 1,'postgres://postgres:123@localhost:5432/crm_db');
 
 
---INSERTYION INTO GROUPS
-INSERT INTO groups (id,name) VALUES (0,'Admin');    //manually added admin's group 
-INSERT INTO groups (name) VALUES ('A');
-INSERT INTO groups (name) VALUES ('B');
-INSERT INTO groups (name) VALUES ('c');

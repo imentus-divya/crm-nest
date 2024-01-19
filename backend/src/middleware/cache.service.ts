@@ -8,6 +8,7 @@ import { Screen_url } from 'src/entity/screen_url.entity';
 import { Lov } from 'src/entity/lov.entity';
 import { Roles } from 'src/entity/roles.entity';
 import { Groups } from 'src/entity/groups.entity';
+import { Module_Screen } from 'src/entity/module_screen.entity';
 
 
 
@@ -17,8 +18,9 @@ export class Caches {
   private role_url_ui: any = {};
   private county = {};
   private fileType = {};
-  private roles={};
-  private groups={};
+  private roles = {};
+  private groups = {};
+  private module_screen = {};
 
 
   constructor(
@@ -27,6 +29,8 @@ export class Caches {
     @InjectRepository(Lov) private lovRepository: Repository<Lov>,
     @InjectRepository(Roles) private rolesRepository: Repository<Roles>,
     @InjectRepository(Groups) private groupsRepository: Repository<Groups>,
+    @InjectRepository(Module_Screen) private module_screenRepository: Repository<Module_Screen>,
+
 
 
 
@@ -72,13 +76,13 @@ export class Caches {
     if ((Object.keys(this.county).length === 0) || (Object.keys(this.fileType).length === 0)) {
       console.log("cache is empty...query will execute for county and filetype")
       try {
-        const caching_county =  await this.lovRepository.find({
+        const caching_county = await this.lovRepository.find({
           where: {
             type: { id: 3 } // Assuming 'id' is the primary key of the related entity
           },
           relations: ['type'] // Ensure this corresponds to the correct relation in LOV entity
         });
-     
+
         // Fetching caching_fileType
         const caching_fileType = await this.lovRepository.find({
           where: {
@@ -111,40 +115,44 @@ export class Caches {
   }
 
   // caching roles , groups and table to show in dropdown at time of creating user
-  async CachingRolesGroups():Promise<any>
-  {
-  console.log("🚀 ~ file: cache.service.ts:114 ~ Caches ~ CachingRoles:")
-  if (Object.keys(this.roles).length === 0 || Object.keys(this.groups).length === 0  )
-  {
-    console.log("cache is  empty at roles and groups ...query will execute");
+  async CachingRolesGroups(): Promise<any> {
+    console.log("🚀 ~ file: cache.service.ts:114 ~ Caches ~ CachingRoles:")
+    if (Object.keys(this.roles).length === 0 || Object.keys(this.groups).length === 0 || Object.keys(this.module_screen).length === 0) {
+      console.log("cache is  empty at roles and groups  & module_screen ...query will execute");
 
-    try {
-      const cachingRole = await this.rolesRepository.find({where: {
-        name: Not("Admin"),
-      },});
-      const cachingGroups = await this.groupsRepository.find({where: {
-        name: Not("Admin")},});
-      console.log("🚀 ~ Caches ~ cachingGroups:", cachingGroups)
+      try {
+        const cachingRole = await this.rolesRepository.find({
+          where: {
+            name: Not("Admin"),
+          },
+        });
+        const cachingGroups = await this.groupsRepository.find({
+          where: {
+            name: Not("Admin")
+          },
+        });
+        const caching_ModuleScreen = await this.module_screenRepository.find({ });
+        console.log("🚀 ~ file: cache.service.ts:135  caching_ModuleScreen:", caching_ModuleScreen)
 
-    
+        return {
+          "roles_present": cachingRole,
+          "groups_present": cachingGroups,
+          "module_screen":caching_ModuleScreen
+        };
+
+      } catch (error) {
+        console.log("🚀  cacheUrls ~ error:", error);
+        return error;
+      }
+    }
+    else {
       return {
-        "roles_present":cachingRole,
-        "groups_present":cachingGroups
+        "roles_present": this.roles,
+        "groups_present": this.groups
       };
 
-    } catch (error) {
-      console.log("🚀  cacheUrls ~ error:", error);
-      return error;
-    }
-  }
-  else {
-    return {
-      "roles_present":this.roles,
-        "groups_present":this.groups
-    };
 
-  
-  }
+    }
 
   }
 }

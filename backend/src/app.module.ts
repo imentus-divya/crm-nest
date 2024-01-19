@@ -24,6 +24,7 @@ import { User_County } from './entity/user_county.entity';
 import { LPcases } from './entity/lp_court_cases';
 import { dataSourceOptions } from 'db/data-source';
 import { Groups } from './entity/groups.entity';
+import { Module_Screen } from './entity/module_screen.entity';
 
 @Module({
   imports: [
@@ -55,7 +56,7 @@ import { Groups } from './entity/groups.entity';
     // }),
     TypeOrmModule.forRoot(dataSourceOptions),
     CacheModule.register({ isGlobal: true }),
-    TypeOrmModule.forFeature([Screen_url, Role_Screen, Lov, Roles ,Groups]),
+    TypeOrmModule.forFeature([Screen_url, Role_Screen, Lov, Roles ,Groups,Module_Screen]),
     AuthModule,
     AdminModule,
     UserModule,
