@@ -8,6 +8,7 @@ import NewUpload from "../Components/DashBoard/Admin/NewUpload";
 import Uploads from "../Components/DashBoard/Admin/Uploads";
 import DashFC from "../Components/DashBoard/User/DashFC";
 import Foreclosure from "../Components/DashBoard/User/Foreclosure";
+import CaseDetails from "../Components/DashBoard/User/CaseDetails";
 import ManageUser from "../Components/DashBoard/Admin/ManageUser";
 import AddUser from "../Components/DashBoard/Admin/AddUser";
 import ManageRoles from "../Components/DashBoard/Admin/ManageRoles";
@@ -24,6 +25,7 @@ const Router = () => {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Login />}></Route>
+            <Route path="/comments" element={<CaseDetails />}></Route>
 
             <Route element={<ProtectedRoutes />}>
               <Route path="/dashboard" element={<Dashboard />}></Route>

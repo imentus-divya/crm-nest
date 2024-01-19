@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
+import { useNavigate } from "react-router-dom";
 import { InputSwitch } from "primereact/inputswitch";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -15,12 +16,14 @@ import "../styledashb.css";
 import axios from "axios";
 import { Paginator } from "primereact/paginator";
 import { Toast } from "primereact/toast";
+import CaseDetails from "./CaseDetails";
 
 const ForeClosureTab = (props: any) => {
   const { isManageCol, county, dt } = props;
   const urll = process.env.REACT_APP_BACKEND_API_URL;
 
   const toast = useRef<Toast>(null);
+  const Navigation = useNavigate();
 
   const columns = [
     { field: "auction_date", header: "Auctn Date" },
@@ -227,6 +230,8 @@ const ForeClosureTab = (props: any) => {
             setSelCaseId(rowData.internal_case_id);
             setSelectedCaseNo(rowData.case_number);
             setcomment(rowData.user_comments);
+            <CaseDetails />;
+            Navigation("/comments");
             setShowComnts(true);
           }}
         />
@@ -301,7 +306,6 @@ const ForeClosureTab = (props: any) => {
               bodyStyle={{ textAlign: "center", minWidth: "12rem" }}
             ></Column>
           </DataTable>
-
           <Paginator
             first={first}
             rows={rows}
@@ -324,7 +328,8 @@ const ForeClosureTab = (props: any) => {
               setRows(e.rows);
             }}
           />
-          <Dialog
+
+          {/* <Dialog
             header="Comments"
             visible={showComnts}
             style={{ width: "50vw" }}
@@ -357,7 +362,7 @@ const ForeClosureTab = (props: any) => {
                   <p key={index}>{item}</p>
                 ))}
             </div>
-          </Dialog>
+          </Dialog> */}
         </div>
       ) : (
         <p>Loading...</p>

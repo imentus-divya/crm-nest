@@ -1,0 +1,40 @@
+.backBut {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+}
+.headerValue {
+  display: flex;
+  gap: 6rem;
+  align-items: center;
+
+  @media (max-width: 967px) {
+    gap: 1rem;
+  }
+}
+.headerTop {
+  font-size: medium;
+}
+.headerDet {
+  font-size: smaller;
+}
+
+.inputCmnt {
+  margin-top: 50px;
+}
+.commentSec {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.dp {
+  height: 40px;
+  min-width: 40px;
+  /* background-color: #626262; */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
